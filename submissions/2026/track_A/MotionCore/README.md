@@ -53,10 +53,10 @@ https://github.com/user-attachments/assets/a10fdaf3-d572-4212-af60-ae2e17013359
 
 ## 📦 安装与配置
 
-### 1. 进入项目（Windows）
+### 1. 下载项目（Windows）
 
 ```bash
-cd motioncore
+cd MotionCore
 ```
 
 ### 2. 设置虚拟环境（推荐）

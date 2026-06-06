@@ -162,6 +162,8 @@ motioncore/
 
 ## 🧠 Gemma 4 智能体架构
 
+我们通过 Google AI Studio 的 OpenAI 兼容端点调用 Gemma 4，利用其原生 Function Calling 特性，在 Python 后端中实现了工具调度与多步推理，并通过结构化日志完整记录了 Agent 的决策过程。
+
 当 `LLM_PROVIDER=gemma4` 时，系统会激活**智能体模式**，展示原生函数调用能力：
 
 1. **步骤 1 – 指令与请求：** 将系统提示词和用户请求发送给 Gemma 4。

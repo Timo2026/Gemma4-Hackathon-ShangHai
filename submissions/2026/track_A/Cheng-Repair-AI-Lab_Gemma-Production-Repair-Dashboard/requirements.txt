@@ -1,0 +1,9 @@
+# ── Gemma 产线维修智能数据看板 · 依赖说明 ──────────────────────────────
+# 纯前端离线 Demo：无需任何 Python 依赖，双击 index.html 即可运行。
+# 真实 Gemma 4 后端（可选 / 加分项）：需以下依赖，在项目根目录一键安装：
+#     pip install -r requirements.txt
+# （内容与 backend/requirements.txt 等价，便于评审在根目录一次性装好）
+flask
+flask-cors
+google-genai
+python-dotenv

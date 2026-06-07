@@ -1,0 +1,23 @@
+{
+  "name": "lvxiangbao-project",
+  "version": "1.0.0",
+  "description": "Google Dev Competition Project",
+  "main": "frontend/src/main.js",
+  "scripts": {
+    "dev": "vite --hot",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "element-plus": "^2.7.2",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.0",
+    "vue-tsc": "^1.1.0"
+  }
+}

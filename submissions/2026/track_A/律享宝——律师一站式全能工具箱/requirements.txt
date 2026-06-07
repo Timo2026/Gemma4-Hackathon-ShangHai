@@ -1,0 +1,29 @@
+# 律享宝 (LüXiangBao) - Python 依赖清单
+# Google Gemma 4 开发大赛参赛项目
+
+# ==================== Web 框架 ====================
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# ==================== 数据库 ====================
+sqlalchemy>=2.0.0
+pymysql>=1.1.0              # MySQL 驱动（生产环境使用，Docker 部署必装）
+cryptography>=41.0.0        # pymysql 加密连接依赖
+
+# ==================== 数据校验 ====================
+pydantic>=2.5.0
+
+# ==================== AI 模型调用 ====================
+openai>=1.55.0              # OpenAI 兼容接口调用 Google Gemma 4
+
+# ==================== 认证与安全 ====================
+python-jose[cryptography]>=3.3.0   # JWT Token 编解码
+passlib[bcrypt]>=1.7.0             # 密码哈希
+bcrypt>=4.0.0                      # bcrypt 加密（passlib 后端）
+
+# ==================== HTTP 与文件 ====================
+httpx>=0.25.0               # 异步 HTTP 客户端
+python-multipart>=0.0.6     # FastAPI 文件上传支持
+
+# ==================== 配置管理 ====================
+python-dotenv>=1.0.0        # .env 环境变量加载

@@ -44,6 +44,25 @@ GET /api/models
 
 The Cloud Run backend scans Google Cloud Storage and returns every `.litertlm` or `.task` file under the configured prefix. Adding a Gemma 4 E2B/E4B file to the bucket updates the app's model picker without rebuilding the APK.
 
+## Gemma Feature Alignment
+
+The official technical checklist mentions Native Function Calling, multimodal processing, and Edge AI deployment as key ways to demonstrate Gemma usage. CareMind's primary technical contribution for this submission is **Edge AI deployment on Android**.
+
+What is implemented:
+
+- Android native module for Gemma-family LiteRT model lifecycle: download, readiness check, engine init, release, text generation, and audio-aware generation hook.
+- Dynamic model catalog through Cloud Run and Google Cloud Storage, so Gemma 4 E2B/E4B LiteRT candidates can be added without rebuilding the APK.
+- Privacy-mode inference router that decides whether a sensitive note should stay on the device or use the cloud workflow.
+- Structured XML contracts and parsers for local Gemma output, plus deterministic fallbacks for incomplete model responses.
+- Local guardrail, care-workflow, and follow-up-summary modules that turn model output into typed product data instead of raw chat text.
+
+What is intentionally not claimed:
+
+- This is not a Native Function Calling-first submission. The on-device LiteRT path uses direct local generation plus typed contracts because offline Android inference is the core C-track requirement.
+- Voice input currently uses Android system speech recognition to create editable text before local LLM processing; fully local audio transcription remains a future extension.
+
+In short, CareMind is more than prompt engineering: the model is embedded into a native Android privacy mode with model management, routing, structured parsing, safety boundaries, and a real hardware demo path.
+
 ## Hardware Demo Setup
 
 ### Hardware
@@ -125,6 +144,48 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 uvicorn main:app --host 127.0.0.1 --port 8090
+```
+
+### Backend With Docker
+
+The submission includes a backend `Dockerfile`. From this folder:
+
+```bash
+cd source/backend
+cp .env.example .env
+```
+
+For local judging without cloud credentials, the backend can still start and expose health/model metadata endpoints. Build and run:
+
+```bash
+docker build -t caremind-backend .
+docker run --rm \
+  --env-file .env \
+  -e PORT=8080 \
+  -p 8080:8080 \
+  caremind-backend
+```
+
+Smoke test:
+
+```bash
+curl http://127.0.0.1:8080/health
+curl http://127.0.0.1:8080/api/models
+```
+
+For the full hosted model-catalog flow, configure these environment variables in `.env` before running the container:
+
+```env
+CAREMIND_GCS_MODEL_BUCKET=caremind-498713-models-asia
+CAREMIND_GCS_MODEL_PREFIX=models
+CAREMIND_GCS_DYNAMIC_CATALOG=1
+CAREMIND_GCS_MODEL_DELIVERY=redirect
+```
+
+The production demo backend is deployed on Cloud Run:
+
+```text
+https://caremind-1039168666325.us-west1.run.app
 ```
 
 Useful endpoints:

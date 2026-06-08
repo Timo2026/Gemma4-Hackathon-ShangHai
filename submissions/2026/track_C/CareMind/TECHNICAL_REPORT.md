@@ -89,7 +89,21 @@ The Android integration is designed for Gemma-family LiteRT model artifacts. The
 
 The app therefore fetches model metadata dynamically from Cloud Run. The backend can expose Gemma 4 E2B/E4B LiteRT candidates when available, and can also expose a smaller 1B fallback for live demos on ordinary hardware.
 
-## 5. Output Format
+## 5. Gemma Feature Alignment
+
+CareMind is submitted to **Track C: Edge AI**, so the primary Gemma feature demonstrated is **on-device / edge deployment** rather than Native Function Calling.
+
+The implementation goes beyond a single prompt:
+
+- The Android native module exposes model lifecycle operations to React Native: `downloadModel`, `isModelReady`, `initEngine`, `releaseEngine`, `generate`, and `generateWithAudio`.
+- The backend exposes a dynamic model catalog (`GET /api/models`) backed by Cloud Storage, allowing Gemma 4 LiteRT files to appear in the Android model picker without rebuilding the app.
+- The frontend inference router switches between local privacy mode and cloud mode.
+- Local Gemma output is constrained by typed XML contracts, parsed into product objects, and repaired by deterministic fallbacks when the model response is incomplete.
+- The same product modules run locally: care-note structuring, guardrail checking, communication script generation, and follow-up-summary drafting.
+
+Native Function Calling is not the main C-track path here. For offline Android inference, CareMind uses direct LiteRT generation plus typed output contracts because this is the most reliable way to keep sensitive care notes on the device. The cloud workflow remains compatible with OpenAI-style agent endpoints, but the competition contribution in this folder is the edge deployment path.
+
+## 6. Output Format
 
 Small local models are more reliable with XML-like tagged output than strict JSON. CareMind uses XML prompts for the on-device path and normalizes results into the same data shape used by cloud mode.
 
@@ -102,7 +116,7 @@ Example local output shape:
 <boundary>这不是诊断或用药建议。</boundary>
 ```
 
-## 6. Safety Boundaries
+## 7. Safety Boundaries
 
 CareMind intentionally avoids:
 
@@ -119,7 +133,7 @@ The safety strategy combines:
 - local and cloud guardrail modules;
 - caregiver confirmation before follow-up summaries include medical-adjacent document notes.
 
-## 7. Data Compliance
+## 8. Data Compliance
 
 For Track C / Social-impact-adjacent usage, CareMind treats care data as sensitive family data.
 
@@ -129,7 +143,34 @@ For Track C / Social-impact-adjacent usage, CareMind treats care data as sensiti
 - The app can process private care notes locally in Privacy Mode.
 - Cloud summaries are generated only when the caregiver intentionally uses cloud mode or reviewed follow-up preparation.
 
-## 8. Verification
+## 9. Docker Deployment
+
+The submitted backend can be run with Docker:
+
+```bash
+cd source/backend
+cp .env.example .env
+docker build -t caremind-backend .
+docker run --rm --env-file .env -e PORT=8080 -p 8080:8080 caremind-backend
+```
+
+Smoke test:
+
+```bash
+curl http://127.0.0.1:8080/health
+curl http://127.0.0.1:8080/api/models
+```
+
+For the hosted model-catalog path, set:
+
+```env
+CAREMIND_GCS_MODEL_BUCKET=caremind-498713-models-asia
+CAREMIND_GCS_MODEL_PREFIX=models
+CAREMIND_GCS_DYNAMIC_CATALOG=1
+CAREMIND_GCS_MODEL_DELIVERY=redirect
+```
+
+## 10. Verification
 
 Local verification used during development:
 
@@ -150,7 +191,7 @@ EXPO_PUBLIC_CAREMIND_API_URL=https://caremind-1039168666325.us-west1.run.app \
 ./gradlew :app:assembleRelease
 ```
 
-## 9. Known Limitations
+## 11. Known Limitations
 
 - On-device Gemma 4 E2B/E4B may exceed memory on mid-range phones. The runtime path supports those files, but live judging should use hardware appropriate to the model size.
 - The current voice input path uses Android system speech recognition before local LLM processing. Fully local audio transcription is out of scope for this submission.

@@ -1,117 +1,117 @@
 # CareMind
 
-**赛道 C: Edge AI / Android on-device dementia-care assistant**
+**赛道 C：Edge AI / Android 端侧失智症家庭照护助手**
 
 CareMind 是一款面向失智症家庭照护者的 AI Care Agent。它帮助家属把混乱、零散、情绪化的照护记录，整理成可追踪的照护线索、今晚可执行的小行动、低冲突沟通话术，以及复诊时可以复制给医生的摘要。
 
 CareMind 不诊断、不处方、不判断是否需要检查，也不替代医生。C 赛道提交重点展示：**敏感照护记录可在 Android 真机上优先通过本地 Gemma LiteRT 模型处理**，让隐私数据更靠近家属自己的设备。
 
-## Team
+## 团队成员
 
-CareMind Team: 张媛、连婕妤、刘畅、郭鸿宇
+CareMind Team：张媛、连婕妤、刘畅、郭鸿宇
 
-## Demo
+## 演示链接
 
-- Public demo video: [Bilibili BV1hFEg6ZEVb](https://www.bilibili.com/video/BV1hFEg6ZEVb)
-- Main project repository: [hyczy0809/CareMind](https://github.com/hyczy0809/CareMind)
-- Demo backend: [https://caremind-1039168666325.us-west1.run.app](https://caremind-1039168666325.us-west1.run.app)
-- Android release APK: produced from `frontend/android` with backend URL above.
+- 公开视频：[Bilibili BV1hFEg6ZEVb](https://www.bilibili.com/video/BV1hFEg6ZEVb)
+- 主项目仓库：[hyczy0809/CareMind](https://github.com/hyczy0809/CareMind)
+- 演示后端：[https://caremind-1039168666325.us-west1.run.app](https://caremind-1039168666325.us-west1.run.app)
+- Android 安装包：由 `frontend/android` 基于上面的后端地址构建。
 
 ![CareMind demo preview](docs/caremind-demo-video-preview.png)
 
-## Edge AI Story
+## Edge AI 方案概览
 
 ```text
-Sensitive care note on Android phone
--> user turns on Privacy Mode
--> app loads a downloadable Gemma LiteRT model
--> local care-note understanding / suggestion generation
--> cloud agent is optional for non-private or fuller workflows
+敏感照护记录输入到 Android 手机
+-> 用户打开隐私模式
+-> App 加载已下载的 Gemma LiteRT 模型
+-> 本地完成照护记录理解 / 建议生成
+-> 云端 Agent 作为非隐私场景下的完整工作流增强
 ```
 
-The submitted source includes the Android native bridge, model downloader, model lifecycle holder, local inference router, XML prompt/parser path, and Cloud Run model catalog API.
+本次提交包含 Android Native Bridge、模型下载器、模型生命周期管理、本地 inference router、XML prompt/parser 路径，以及 Cloud Run 模型目录接口。
 
-## Model Choice
+## 模型选择
 
-CareMind's on-device path supports `.litertlm` / `.task` Gemma-family model artifacts through the same Android LiteRT integration.
+CareMind 的端侧路径支持 `.litertlm` / `.task` 格式的 Gemma-family 模型文件，使用同一套 Android LiteRT 集成方式。
 
-| Model | Role | Notes |
+| 模型 | 用途 | 说明 |
 |---|---|---|
-| Gemma 4 E2B / E4B LiteRT | larger candidate model | Supported by the dynamic model catalog and Android download/load path where device memory allows. |
-| Gemma 3 1B LiteRT | hardware-demo fallback | Used for the current mid-range Android demo because it is about 557 MB and avoids OOM crashes on ordinary phones. |
+| Gemma 4 E2B / E4B LiteRT | 更大规格候选模型 | 通过动态模型目录和 Android 下载/加载路径支持；能否流畅运行取决于设备内存。 |
+| Gemma 3 1B LiteRT | 当前硬件演示备用模型 | 约 557 MB，更适合普通 Android 手机，能降低 OOM 和闪退风险。 |
 
-The model list is not hard-coded in the APK. The app calls:
+APK 不硬编码模型列表。App 会调用：
 
 ```http
 GET /api/models
 ```
 
-The Cloud Run backend scans Google Cloud Storage and returns every `.litertlm` or `.task` file under the configured prefix. Adding a Gemma 4 E2B/E4B file to the bucket updates the app's model picker without rebuilding the APK.
+Cloud Run 后端会扫描 Google Cloud Storage 指定目录，返回其中所有 `.litertlm` 或 `.task` 文件。之后只要把 Gemma 4 E2B/E4B 文件放入 bucket，App 的模型选择器就能刷新看到，不需要重新打包 APK。
 
-## Gemma Feature Alignment
+## Gemma 特性对齐
 
-The official technical checklist mentions Native Function Calling, multimodal processing, and Edge AI deployment as key ways to demonstrate Gemma usage. CareMind's primary technical contribution for this submission is **Edge AI deployment on Android**.
+官方技术要求中提到 Native Function Calling、多模态处理和 Edge AI 部署。CareMind 本次提交的核心技术贡献是：**Gemma 在 Android 端侧的 Edge AI 部署**。
 
-What is implemented:
+已经实现的部分：
 
-- Android native module for Gemma-family LiteRT model lifecycle: download, readiness check, engine init, release, text generation, and audio-aware generation hook.
-- Dynamic model catalog through Cloud Run and Google Cloud Storage, so Gemma 4 E2B/E4B LiteRT candidates can be added without rebuilding the APK.
-- Privacy-mode inference router that decides whether a sensitive note should stay on the device or use the cloud workflow.
-- Structured XML contracts and parsers for local Gemma output, plus deterministic fallbacks for incomplete model responses.
-- Local guardrail, care-workflow, and follow-up-summary modules that turn model output into typed product data instead of raw chat text.
-- Cloud ADK Agent path with native tool/function declarations. `cloud_agents.py` defines care tools, memory tools, and specialist agents; `cloudflare_openai_model.py` converts those declarations into OpenAI-compatible `tools` / `tool_choice: auto` payloads and converts returned `tool_calls` back into ADK function calls.
+- Android 原生模块管理 Gemma-family LiteRT 模型生命周期：下载、检查就绪状态、初始化 engine、释放 engine、文本生成，以及音频感知生成接口预留。
+- Cloud Run + Google Cloud Storage 动态模型目录，使 Gemma 4 E2B/E4B LiteRT 候选模型可以在不重打包 APK 的情况下加入模型列表。
+- 隐私模式 inference router，根据场景决定敏感记录留在本机处理，还是走云端完整 Agent 工作流。
+- 本地 Gemma 输出采用结构化 XML contract，并通过 parser 转成产品数据；若模型输出不完整，则降级到确定性 fallback。
+- 本地 guardrail、照护工作流、复诊摘要模块会把模型输出转成 typed product data，而不是直接展示一段聊天文本。
+- 云端 ADK Agent 路径包含真实的 tool/function declarations。`cloud_agents.py` 定义照护工具、Memory 工具和 specialist agents；`cloudflare_openai_model.py` 会把这些声明转成 OpenAI-compatible `tools` / `tool_choice: auto` 请求，并把模型返回的 `tool_calls` 转回 ADK function calls 执行。
 
-What is intentionally scoped:
+边界说明：
 
-- The C-track primary path is Edge AI deployment on Android. The on-device LiteRT path uses direct local generation plus typed contracts because offline Android inference is the core requirement.
-- Native Function Calling is demonstrated in the optional cloud Agent path rather than the offline LiteRT path.
-- Voice input currently uses Android system speech recognition to create editable text before local LLM processing; fully local audio transcription remains a future extension.
+- C 赛道主路径是 Android Edge AI。离线 LiteRT 路径使用本地生成 + 结构化输出 contract，因为这是端侧隐私处理更可靠的方式。
+- Native Function Calling 展示在可选的云端 Agent 路径中，不是离线 LiteRT 路径。
+- 语音输入当前通过 Android 系统语音识别先转成可编辑文本；完全本地的音频转写是后续扩展方向。
 
-In short, CareMind is more than prompt engineering: the model is embedded into a native Android privacy mode with model management, routing, structured parsing, safety boundaries, and a real hardware demo path; the cloud Agent path also shows function/tool calling orchestration for the fuller workflow.
+简而言之，CareMind 不是简单 prompt 工程：端侧路径包含模型管理、隐私路由、结构化解析、安全边界和真机演示；云端路径则展示了完整的 function/tool calling Agent 编排。
 
-## Hardware Demo Setup
+## 硬件演示说明
 
-### Hardware
+### 硬件
 
-- Android phone
-- Android 8.0+ recommended
-- At least 4 GB RAM recommended for the 1B fallback model
-- More RAM required for Gemma 4 E2B/E4B LiteRT experiments
+- Android 手机
+- 推荐 Android 8.0+
+- 1B 演示模型建议至少 4 GB RAM
+- Gemma 4 E2B/E4B LiteRT 实验建议使用更高内存设备
 
-### Android Build Environment
+### Android 编译环境
 
 - Expo SDK 52
 - React Native 0.76
 - Android compileSdk 35
 - Android minSdk 24
-- Kotlin / Gradle through the Expo Android project
-- JDK 17 recommended
-- MediaPipe GenAI runtime: `com.google.mediapipe:tasks-genai:0.10.35`
+- Kotlin / Gradle 使用 Expo Android 工程配置
+- 推荐 JDK 17
+- MediaPipe GenAI runtime：`com.google.mediapipe:tasks-genai:0.10.35`
 
-No Raspberry Pi, MCU, custom kernel module, or bottom-level driver is required. The hardware target is a standard Android phone.
+本项目不涉及树莓派、MCU、自定义内核模块或底层驱动。硬件目标是标准 Android 手机。
 
-### Hardware Demo Steps
+### 硬件演示步骤
 
-1. Install the APK on an Android phone.
-2. Open **Settings / Privacy Mode**.
-3. Refresh the model catalog.
-4. Download a LiteRT model from the backend.
-5. Turn off Wi-Fi and mobile data.
-6. Enter a sensitive care note:
+1. 在 Android 手机上安装 CareMind APK。
+2. 打开 **Settings / Privacy Mode**。
+3. 刷新模型目录。
+4. 从后端下载 LiteRT 模型。
+5. 关闭 Wi-Fi 和移动网络。
+6. 输入一条敏感照护记录：
 
 ```text
 外婆夜里醒了四次，一直说有人偷钱，晚饭只吃了几口，妈妈也很累。
 ```
 
-7. Show that CareMind returns local, non-diagnostic care observations and lower-burden next actions.
+7. 展示 CareMind 在本地返回非诊断性的照护观察和低负担行动建议。
 
-Suggested caption for the hardware demo:
+建议视频字幕：
 
 ```text
 Network off. Gemma LiteRT runs on the Android device for local care-note understanding.
 ```
 
-## Repository Contents
+## 提交目录结构
 
 ```text
 CareMind/
@@ -139,11 +139,11 @@ CareMind/
         └── android/
 ```
 
-The full product repository is linked above. This submission folder keeps only the C-track-relevant core source so reviewers can inspect the edge path quickly.
+完整产品代码见主项目仓库。本提交目录只保留与 C 赛道评审相关的核心源码，方便快速检查端侧路径。
 
-## Quick Start
+## 快速启动
 
-### Backend
+### 后端本地启动
 
 ```bash
 cd source/backend
@@ -154,16 +154,16 @@ cp .env.example .env
 uvicorn main:app --host 127.0.0.1 --port 8090
 ```
 
-### Backend With Docker
+### Docker 启动后端
 
-The submission includes a backend `Dockerfile`. From this folder:
+本提交包含后端 `Dockerfile`。从提交目录执行：
 
 ```bash
 cd source/backend
 cp .env.example .env
 ```
 
-For local judging without cloud credentials, the backend can still start and expose health/model metadata endpoints. Build and run:
+如果本地评审环境没有云端凭据，后端仍可以启动，并暴露 health 与模型 metadata 接口。构建并运行：
 
 ```bash
 docker build -t caremind-backend .
@@ -174,14 +174,14 @@ docker run --rm \
   caremind-backend
 ```
 
-Smoke test:
+冒烟测试：
 
 ```bash
 curl http://127.0.0.1:8080/health
 curl http://127.0.0.1:8080/api/models
 ```
 
-For the full hosted model-catalog flow, configure these environment variables in `.env` before running the container:
+如需使用完整的托管模型目录流程，请在 `.env` 中配置：
 
 ```env
 CAREMIND_GCS_MODEL_BUCKET=caremind-498713-models-asia
@@ -190,13 +190,13 @@ CAREMIND_GCS_DYNAMIC_CATALOG=1
 CAREMIND_GCS_MODEL_DELIVERY=redirect
 ```
 
-The production demo backend is deployed on Cloud Run:
+当前生产演示后端部署在 Cloud Run：
 
 ```text
 https://caremind-1039168666325.us-west1.run.app
 ```
 
-Useful endpoints:
+常用接口：
 
 ```http
 GET  /health
@@ -208,15 +208,15 @@ POST /api/reports/follow-up
 POST /v1/chat/completions
 ```
 
-### Native Function Calling / Tool Calling Path
+### Native Function Calling / Tool Calling 路径
 
-The backend also exposes an OpenAI-compatible agent endpoint:
+后端也提供 OpenAI-compatible Agent 接口：
 
 ```http
 POST /v1/chat/completions
 ```
 
-When ADK dependencies are available, this route runs `caremind_cloud_root_agent`. The agent is configured with real tools such as:
+当 ADK 依赖可用时，该接口会运行 `caremind_cloud_root_agent`。这个 Agent 配置了真实工具，例如：
 
 - `run_cloud_care_workflow`
 - `extract_care_signals`
@@ -228,9 +228,9 @@ When ADK dependencies are available, this route runs `caremind_cloud_root_agent`
 - `retrieve_behavior_baseline`
 - `generate_doctor_summary`
 
-The model adapter in `source/backend/my_agent/cloudflare_openai_model.py` converts ADK function declarations into OpenAI-compatible `tools` and sends `tool_choice: auto`. When the model returns `tool_calls`, the adapter converts them back into ADK function calls so the backend can execute the corresponding Python tools.
+`source/backend/my_agent/cloudflare_openai_model.py` 会把 ADK function declarations 转成 OpenAI-compatible `tools`，并发送 `tool_choice: auto`。当模型返回 `tool_calls` 时，adapter 会把它们转回 ADK function calls，让后端执行对应 Python 工具。
 
-Minimal request:
+最小请求示例：
 
 ```bash
 curl -X POST http://127.0.0.1:8080/v1/chat/completions \
@@ -248,11 +248,11 @@ curl -X POST http://127.0.0.1:8080/v1/chat/completions \
   }'
 ```
 
-This cloud path is the Native Function Calling / Tool Calling demonstration. The Android privacy mode remains the Edge AI demonstration.
+这条云端路径用于展示 Native Function Calling / Tool Calling。Android 隐私模式则用于展示 Edge AI。
 
-### Android
+### Android 构建
 
-The full Android project is available in the main repository. The submitted files show the key native and TypeScript edge modules.
+完整 Android 工程在主项目仓库中。本提交目录保留的是关键 Native 和 TypeScript 端侧模块。
 
 ```bash
 cd frontend
@@ -264,16 +264,16 @@ EXPO_PUBLIC_CAREMIND_API_URL=https://caremind-1039168666325.us-west1.run.app \
 ./gradlew :app:assembleRelease
 ```
 
-## Privacy And Safety
+## 隐私与安全边界
 
-CareMind handles dementia-care data, which may include family conflict, caregiver distress, medication observations, and clinic materials. The app therefore follows these boundaries:
+CareMind 处理的是失智症家庭照护数据，可能包含家庭冲突、照护者压力、用药观察和复诊资料。因此产品遵守以下边界：
 
-- Sensitive care notes can be routed to the on-device model in Privacy Mode.
-- Cloud mode is optional and intended for fuller agent workflows and long-term summaries.
-- Reviewed medical documents enter the follow-up summary only after caregiver confirmation.
-- The app does not output diagnosis, prescription, medication adjustment, or imaging/test decisions.
-- Crisis or emergency cases should be handled by local emergency services or clinicians.
+- 敏感照护记录可在隐私模式下走端侧模型。
+- 云端模式是可选路径，用于更完整的 Agent 工作流和长期摘要。
+- 病历/检查资料进入复诊摘要前，需要家属确认。
+- CareMind 不输出诊断、处方、用药调整或检查决策。
+- 涉及急性风险或紧急情况时，应联系当地紧急服务或医生。
 
-## Why Track C
+## 为什么选择 C 赛道
 
-The core insight of CareMind is not only "AI can summarize notes." It is that **the most sensitive care moments often happen at home, late at night, on the caregiver's phone**. Edge AI is therefore a product requirement: the assistant should be able to structure and respond to private care notes without requiring every raw detail to leave the device.
+CareMind 的核心洞察不是“AI 可以总结文本”，而是：**最敏感的照护时刻往往发生在家里、深夜、照护者自己的手机上**。因此 Edge AI 是产品需求，而不是装饰性技术点。CareMind 希望让家属在不把每一段原始私密记录都交给云端的情况下，也能获得结构化照护理解和下一步支持。

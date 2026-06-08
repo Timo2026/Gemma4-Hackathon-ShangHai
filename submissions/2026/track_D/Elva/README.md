@@ -1,5 +1,4 @@
 <h1 align="center">
-  🧠<br>
   Elva LaoBai（老白）
 </h1>
 
@@ -12,7 +11,7 @@
 </p>
 
 <p align="center">
-  🎥 <a href="#"><strong>演示视频</strong></a> · 📄 <a href="#"><strong>技术报告</strong></a> · 💻 <a href="https://github.com/Elva-Gemma4Hackthon/Elva"><strong>源码仓库</strong></a>
+  🎥 <a href="docs/路演演示.html"><strong>路演演示</strong></a> · 📄 <a href="https://github.com/Elva-Gemma4Hackthon/Elva/blob/main/README.md"><strong>技术报告</strong></a> · 💻 <a href="https://github.com/Elva-Gemma4Hackthon/Elva"><strong>源码仓库</strong></a>
 </p>
 
 <p align="center">
@@ -360,9 +359,15 @@ Elva/
 
 ## 团队
 
-<!-- TODO: 补充队伍信息 -->
-<!-- 队伍名：-->
-<!-- 队员：-->
+**队伍：Elva**
+
+| 成员 | |
+| --- | --- |
+| River | |
+| Xavier | |
+| 雷雨 | |
+| ichi | |
+| Asandstar | |
 
 <hr>
 

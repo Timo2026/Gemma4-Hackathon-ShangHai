@@ -55,13 +55,15 @@ What is implemented:
 - Privacy-mode inference router that decides whether a sensitive note should stay on the device or use the cloud workflow.
 - Structured XML contracts and parsers for local Gemma output, plus deterministic fallbacks for incomplete model responses.
 - Local guardrail, care-workflow, and follow-up-summary modules that turn model output into typed product data instead of raw chat text.
+- Cloud ADK Agent path with native tool/function declarations. `cloud_agents.py` defines care tools, memory tools, and specialist agents; `cloudflare_openai_model.py` converts those declarations into OpenAI-compatible `tools` / `tool_choice: auto` payloads and converts returned `tool_calls` back into ADK function calls.
 
-What is intentionally not claimed:
+What is intentionally scoped:
 
-- This is not a Native Function Calling-first submission. The on-device LiteRT path uses direct local generation plus typed contracts because offline Android inference is the core C-track requirement.
+- The C-track primary path is Edge AI deployment on Android. The on-device LiteRT path uses direct local generation plus typed contracts because offline Android inference is the core requirement.
+- Native Function Calling is demonstrated in the optional cloud Agent path rather than the offline LiteRT path.
 - Voice input currently uses Android system speech recognition to create editable text before local LLM processing; fully local audio transcription remains a future extension.
 
-In short, CareMind is more than prompt engineering: the model is embedded into a native Android privacy mode with model management, routing, structured parsing, safety boundaries, and a real hardware demo path.
+In short, CareMind is more than prompt engineering: the model is embedded into a native Android privacy mode with model management, routing, structured parsing, safety boundaries, and a real hardware demo path; the cloud Agent path also shows function/tool calling orchestration for the fuller workflow.
 
 ## Hardware Demo Setup
 
@@ -120,6 +122,8 @@ CareMind/
 └── source/
     ├── backend/
     │   ├── main.py
+    │   ├── openai_compat.py
+    │   ├── my_agent/
     │   ├── requirements.txt
     │   ├── Dockerfile
     │   └── .env.example
@@ -197,7 +201,50 @@ GET  /api/models/{filename}/meta
 GET  /api/models/{filename}
 POST /api/care-workflow
 POST /api/reports/follow-up
+POST /v1/chat/completions
 ```
+
+### Native Function Calling / Tool Calling Path
+
+The backend also exposes an OpenAI-compatible agent endpoint:
+
+```http
+POST /v1/chat/completions
+```
+
+When ADK dependencies are available, this route runs `caremind_cloud_root_agent`. The agent is configured with real tools such as:
+
+- `run_cloud_care_workflow`
+- `extract_care_signals`
+- `assess_patient_risk`
+- `assess_caregiver_burden`
+- `create_care_plan`
+- `retrieve_patient_profile`
+- `retrieve_recent_events`
+- `retrieve_behavior_baseline`
+- `generate_doctor_summary`
+
+The model adapter in `source/backend/my_agent/cloudflare_openai_model.py` converts ADK function declarations into OpenAI-compatible `tools` and sends `tool_choice: auto`. When the model returns `tool_calls`, the adapter converts them back into ADK function calls so the backend can execute the corresponding Python tools.
+
+Minimal request:
+
+```bash
+curl -X POST http://127.0.0.1:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "X-Session-ID: demo-session" \
+  -d '{
+    "model": "my_agent",
+    "messages": [
+      {
+        "role": "user",
+        "content": "妈妈昨晚起来四次，一直说有人偷钱，晚饭只吃了几口。我也快撑不住了。"
+      }
+    ],
+    "stream": false
+  }'
+```
+
+This cloud path is the Native Function Calling / Tool Calling demonstration. The Android privacy mode remains the Edge AI demonstration.
 
 ### Android
 

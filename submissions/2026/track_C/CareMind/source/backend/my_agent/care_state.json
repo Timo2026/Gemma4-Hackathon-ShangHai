@@ -1,0 +1,625 @@
+{
+  "patients": {
+    "demo_patient": {
+      "profile": {
+        "name": "演示患者",
+        "diagnosis": "失智症/阿尔兹海默病家庭照护场景",
+        "baseline": {
+          "sleep": "夜间偶有起床",
+          "behavior": "黄昏时更容易反复表达想回家",
+          "communication": "共情、转移注意力比直接纠正更有效"
+        }
+      },
+      "events": [],
+      "risk_cards": [],
+      "care_plans": [],
+      "reminders": []
+    },
+    "local_patient": {
+      "profile": {
+        "name": "local_patient",
+        "baseline": {}
+      },
+      "events": [
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 10:56:56",
+          "created_at": "2026-06-05 10:56:56"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 10:57:26",
+          "created_at": "2026-06-05 10:57:26"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 10:57:52",
+          "created_at": "2026-06-05 10:57:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 10:58:52",
+          "created_at": "2026-06-05 10:58:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 10:59:11",
+          "created_at": "2026-06-05 10:59:11"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 11:07:27",
+          "created_at": "2026-06-05 11:07:27"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "suspicion",
+          "event_label": "怀疑/被害感表达",
+          "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+          "severity": "medium",
+          "frequency": 4,
+          "evidence": [
+            "偷",
+            "有人"
+          ],
+          "timestamp": "2026-06-05 11:37:33",
+          "created_at": "2026-06-05 11:37:33"
+        },
+        {
+          "patient_id": "local_patient",
+          "caregiver_id": "local_caregiver",
+          "event_type": "medication_refusal",
+          "event_label": "拒绝服药/漏服",
+          "description": "不肯吃药",
+          "severity": "medium",
+          "frequency": null,
+          "evidence": [
+            "不肯吃药"
+          ],
+          "timestamp": "2026-06-05 13:15:02",
+          "created_at": "2026-06-05 13:15:02"
+        }
+      ],
+      "risk_cards": [
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "medium",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 3,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 10:56:56"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 6,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 10:57:26"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 9,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 10:57:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 12,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 10:58:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 15,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 10:59:11"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 18,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 11:07:27"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "low",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 0,
+            "behavior_escalation": 21,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 11:37:33"
+        },
+        {
+          "patient_id": "local_patient",
+          "scope": "patient",
+          "risk_levels": {
+            "night_safety": "low",
+            "wandering": "low",
+            "medication_adherence": "medium",
+            "behavior_escalation": "high",
+            "sleep_disruption": "low"
+          },
+          "scores": {
+            "night_safety": 0,
+            "wandering": 0,
+            "medication_adherence": 4,
+            "behavior_escalation": 21,
+            "sleep_disruption": 0
+          },
+          "trigger_reasons": [
+            "怀疑/被害感表达",
+            "拒药或漏服线索"
+          ],
+          "safety_boundary": "非诊断性照护风险提示；如出现急性意识改变、跌倒受伤、失踪、胸痛、呼吸困难、自伤/伤人风险，应立即联系急救或医生。",
+          "created_at": "2026-06-05 13:15:02"
+        }
+      ],
+      "care_plans": [
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 10:56:56"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 10:57:26"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 10:57:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 10:58:52"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 10:59:11"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 11:07:27"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 11:37:33"
+        },
+        {
+          "patient_id": "local_patient",
+          "priorities": [
+            "服药前避免正面争执，先安抚和转移注意力，再按医嘱记录服药情况。",
+            "减少纠正与争辩，使用确认感受、陪伴和转移注意力的话术。"
+          ],
+          "tomorrow_observation": [
+            "记录夜间起床/外出企图次数",
+            "记录拒药/漏服是否持续",
+            "记录触发行为变化的时间、场景和回应效果",
+            "记录照护者睡眠和情绪负担"
+          ],
+          "non_diagnostic_note": "本计划用于家庭照护支持和复诊沟通准备，不替代医生诊疗。",
+          "created_at": "2026-06-05 13:15:02"
+        }
+      ],
+      "reminders": []
+    }
+  },
+  "caregivers": {
+    "demo_caregiver": {
+      "profile": {
+        "role": "家庭主要照护者"
+      },
+      "support_cards": []
+    },
+    "local_caregiver": {
+      "profile": {
+        "role": "照护者"
+      },
+      "support_cards": [
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 10:56:56"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 10:57:26"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 10:57:52"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 10:58:52"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 10:59:11"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 11:07:27"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 0,
+            "need_for_respite": 0
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 11:37:33"
+        },
+        {
+          "caregiver_id": "local_caregiver",
+          "patient_id": "local_patient",
+          "scope": "caregiver",
+          "risk_levels": {
+            "sleep_deprivation": "low",
+            "emotional_distress": "low",
+            "overload": "low",
+            "need_for_respite": "low"
+          },
+          "scores": {
+            "sleep_deprivation": 0,
+            "emotional_distress": 0,
+            "overload": 2,
+            "need_for_respite": 1
+          },
+          "trigger_reasons": [],
+          "support_boundary": "支持照护者自我照护与求助，不提供心理诊断；如出现自伤念头或无法保证安全，应立即联系当地紧急服务/危机热线/医疗专业人员。",
+          "created_at": "2026-06-05 13:15:02"
+        }
+      ]
+    }
+  },
+  "last_update_time": "2026-06-05 13:15:02"
+}

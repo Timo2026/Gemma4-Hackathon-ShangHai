@@ -1,0 +1,75 @@
+{
+  "local_caregiver": {
+    "caregiver_id": "local_caregiver",
+    "recent_state": {
+      "sleep_status": "low",
+      "distress_level": "low",
+      "evidence": [],
+      "last_updated": "2026-06-05"
+    },
+    "support_resources": {
+      "family_members": [],
+      "community_support": [],
+      "preferred_support_strategy": ""
+    },
+    "history": [
+      {
+        "sleep_status": "unknown",
+        "distress_level": "unknown",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 10:56:56"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 10:57:26"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 10:57:52"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 10:58:52"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 10:59:11"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 11:07:28"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 11:37:33"
+      },
+      {
+        "sleep_status": "low",
+        "distress_level": "low",
+        "evidence": [],
+        "last_updated": "2026-06-05",
+        "snapshot_at": "2026-06-05 13:15:02"
+      }
+    ],
+    "updated_at": "2026-06-05 13:15:02"
+  }
+}

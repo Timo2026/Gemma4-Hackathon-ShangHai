@@ -100,8 +100,41 @@ The implementation goes beyond a single prompt:
 - The frontend inference router switches between local privacy mode and cloud mode.
 - Local Gemma output is constrained by typed XML contracts, parsed into product objects, and repaired by deterministic fallbacks when the model response is incomplete.
 - The same product modules run locally: care-note structuring, guardrail checking, communication script generation, and follow-up-summary drafting.
+- The cloud ADK route demonstrates Native Function Calling / Tool Calling: `cloud_agents.py` registers care and memory tools, while `cloudflare_openai_model.py` serializes those tool declarations into OpenAI-compatible `tools` with `tool_choice: auto`, then maps returned `tool_calls` back into ADK function calls.
 
-Native Function Calling is not the main C-track path here. For offline Android inference, CareMind uses direct LiteRT generation plus typed output contracts because this is the most reliable way to keep sensitive care notes on the device. The cloud workflow remains compatible with OpenAI-style agent endpoints, but the competition contribution in this folder is the edge deployment path.
+Native Function Calling is not the offline LiteRT mechanism. For Android privacy mode, CareMind uses direct LiteRT generation plus typed output contracts because this is the most reliable way to keep sensitive care notes on the device. For the optional cloud Agent workflow, the model is given explicit care tools and can choose tool calls through the OpenAI-compatible adapter.
+
+### Cloud Agent Tool Set
+
+Representative tools exposed to the cloud root agent:
+
+```text
+run_cloud_care_workflow
+extract_care_signals
+log_extracted_events
+assess_patient_risk
+assess_caregiver_burden
+create_care_plan
+get_communication_script
+retrieve_patient_profile
+retrieve_recent_events
+retrieve_behavior_baseline
+retrieve_medication_memory
+retrieve_caregiver_state
+retrieve_professional_knowledge
+generate_doctor_summary
+```
+
+This lets the model orchestrate a sequence such as:
+
+```text
+user note
+-> call run_cloud_care_workflow
+-> retrieve / update memory
+-> generate risk and caregiver support cards
+-> prepare doctor-facing summary
+-> return a non-diagnostic final answer
+```
 
 ## 6. Output Format
 

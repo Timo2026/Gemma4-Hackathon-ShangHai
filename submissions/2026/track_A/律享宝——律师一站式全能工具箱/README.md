@@ -2,7 +2,7 @@
 
 > 基于 Google Gemma 4 的全链路律师执业 AI Agent — Google Gemma 4 开发大赛参赛项目
 
----
+---外链DEMO预览地址：https://lvxiangbao.zhaoyizu.com
 
 ## 📖 项目背景
 
@@ -338,3 +338,4 @@ Docker 模式会自动启动：
 ## 📄 许可证
 
 本项目为 Google Gemma 4 开发大赛参赛作品。
+

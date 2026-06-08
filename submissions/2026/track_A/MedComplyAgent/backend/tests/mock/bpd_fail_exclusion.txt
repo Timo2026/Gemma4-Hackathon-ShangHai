@@ -1,0 +1,4 @@
+Patient had an emergency department encounter on 2026-04-20.
+Blood pressure at emergency department: 130/80.
+Patient had an office visit on 2026-04-21.
+Blood pressure at office visit: 142/92.

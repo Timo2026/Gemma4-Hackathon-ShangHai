@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  🎥 <a href="docs/路演演示.html"><strong>路演演示</strong></a> · 📄 <a href="https://github.com/Elva-Gemma4Hackthon/Elva/blob/main/README.md"><strong>技术报告</strong></a> · 💻 <a href="https://github.com/Elva-Gemma4Hackthon/Elva"><strong>源码仓库</strong></a>
+  🎥 <a href="https://github.com/Elva-Gemma4Hackthon/Elva/releases"><strong>演示视频</strong></a> · 📄 <a href="https://github.com/Elva-Gemma4Hackthon/Elva/blob/main/README.md"><strong>技术报告</strong></a> · 🎤 <a href="docs/路演演示.html"><strong>路演PPT</strong></a> · 💻 <a href="https://github.com/Elva-Gemma4Hackthon/Elva"><strong>源码仓库</strong></a>
 </p>
 
 <p align="center">

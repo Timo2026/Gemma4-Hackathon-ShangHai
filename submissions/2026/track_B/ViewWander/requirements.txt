@@ -1,0 +1,14 @@
+# ViewWander 复现代码（main.py + scripts/）的依赖
+#
+# 代码刻意只用 Python 标准库（urllib / base64 / json），零第三方依赖 ——
+# 云端后端直接打 Google AI Studio 原生 Gemini API、端侧后端直接打本机 oMLX 的
+# OpenAI 兼容端点，把「Gemma 4 多模态调用逻辑」摊开给评审看，不藏在 SDK 后面。
+#
+# 运行条件：
+#   - Python 3.8+
+#   - 云端模式：环境变量 GEMMA_API_KEY（或 GOOGLE_API_KEY）= AI Studio key
+#     获取：https://aistudio.google.com/apikey（main.py 也会交互索取）
+#   - 本地模式：Apple Silicon Mac + 本机 oMLX 常驻 8080 并加载 gemma-4-e4b-it-4bit
+#     （见 https://omlx.ai/ · 不需要 key、不联网）
+#
+# 因此本文件无需安装任何包。`pip install -r requirements.txt` 会直接通过。

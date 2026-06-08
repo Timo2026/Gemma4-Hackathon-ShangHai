@@ -6,6 +6,10 @@ CareMind 是一款面向失智症家庭照护者的 AI Care Agent。它帮助家
 
 CareMind 不诊断、不处方、不判断是否需要检查，也不替代医生。C 赛道提交重点展示：**敏感照护记录可在 Android 真机上优先通过本地 Gemma LiteRT 模型处理**，让隐私数据更靠近家属自己的设备。
 
+## Team
+
+CareMind Team: 张媛、连婕妤、刘畅、郭鸿宇
+
 ## Demo
 
 - Public demo video: [Bilibili BV1hFEg6ZEVb](https://www.bilibili.com/video/BV1hFEg6ZEVb)

@@ -25,32 +25,32 @@ def get_shanghai_composite_index():
         "Referer": "http://finance.sina.com.cn",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
-    
+
     try:
         # 使用 requests 获取数据
         response = requests.get(url, headers=headers, timeout=10)
-        
+
         # 新浪接口返回的是 GBK 编码，需要手动解码防止中文乱码
         content = response.content.decode('gbk')
-        
+
         # 格式示例: var hq_str_s_sh000001="上证指数,3052.45,13.20,0.43,123456,789012";
         match = re.search(r'"([^"]*)"', content)
         if match:
             data_str = match.group(1)
             if not data_str:
                 return "当前非交易时间或接口无数据。"
-            
+
             parts = data_str.split(',')
             # 指数名称, 当前点数, 涨跌额, 涨跌幅, 成交量(手), 成交额(万元)
             name = parts[0]
             current_point = parts[1]
             change_value = parts[2]
             change_percent = parts[3]
-            
+
             # 格式化输出
             symbol = "📈" if float(change_value) >= 0 else "📉"
             return f"{symbol} {name}: {current_point} | 涨跌: {change_value} ({change_percent}%)"
-        
+
         return "未能解析到指数数据，请检查网络。"
     except Exception as e:
         return f"获取上证指数失败，原因: {str(e)}"
@@ -60,5 +60,3 @@ ALL_TOOLS = [
     get_time_in_china,
     get_shanghai_composite_index
 ]
-
-

@@ -230,4 +230,3 @@ root_agent = Agent(
     ],
     tools=[run_cloud_care_workflow, get_cloud_care_state, retrieve_patient_profile],
 )
-

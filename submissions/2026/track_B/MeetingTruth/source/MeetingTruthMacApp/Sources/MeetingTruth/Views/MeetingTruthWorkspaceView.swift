@@ -1553,6 +1553,8 @@ private struct MeetingTruthCentralReviewStatusCard: View {
                     Spacer()
                 }
 
+                toolAuditOverview(ledger)
+
                 VStack(alignment: .leading, spacing: 8) {
                     ForEach(workflowRows) { row in
                         HStack(alignment: .top, spacing: 8) {
@@ -1606,6 +1608,51 @@ private struct MeetingTruthCentralReviewStatusCard: View {
             Label("技术审计 / 开发者详情", systemImage: "wrench.and.screwdriver")
                 .font(.caption.weight(.semibold))
         }
+    }
+
+    private func toolAuditOverview(_ ledger: MeetingTruthCentralReviewLedger) -> some View {
+        let summary = MeetingTruthToolAuditSummary.make(from: ledger.toolCallRecords)
+        return VStack(alignment: .leading, spacing: 8) {
+            Text("函数调用审计总览")
+                .font(.caption.weight(.semibold))
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+                centralMetric("总调用", "\(summary.totalCount) 次", "已执行 \(summary.executedCount) 步")
+                centralMetric("原生调用", "\(summary.nativeCount) 次", summary.nativeCount > 0 ? "LM Studio 可审计" : "未观察到 native")
+                centralMetric("兼容/补全", "\(summary.fallbackCount + summary.autoCount) 次", "fallback \(summary.fallbackCount) · auto \(summary.autoCount)")
+                centralMetric("最后原生工具", summary.lastNativeFunctionName.map(toolDisplayName) ?? "无", summary.stopTitle)
+            }
+            Text(summary.stopDetail)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            VStack(alignment: .leading, spacing: 5) {
+                ForEach(summary.rows) { row in
+                    HStack(alignment: .top, spacing: 8) {
+                        MeetingTruthPlainStatus(text: "\(row.count) 次", color: toolAuditRowColor(row))
+                            .frame(width: 58, alignment: .leading)
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 6) {
+                                Text(row.title)
+                                    .font(.caption2.weight(.semibold))
+                                MeetingTruthPlainStatus(text: row.stateText, color: toolAuditRowColor(row))
+                            }
+                            Text(row.callReason)
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                            if row.count > 0 {
+                                Text("native \(row.nativeCount) · fallback \(row.fallbackCount) · auto \(row.autoCount) · executed \(row.executedCount) · skipped \(row.skippedCount) · failed \(row.failedCount)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .padding(9)
+        .background(.blue.opacity(0.06))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 
     private var emptyCentralReviewState: some View {
@@ -1909,6 +1956,21 @@ private struct MeetingTruthCentralReviewStatusCard: View {
         case .manualConfirmation: .teal
         case .unknown: .secondary
         }
+    }
+
+    private func toolAuditRowColor(_ row: MeetingTruthToolAuditSummary.Row) -> Color {
+        switch row.stateKind {
+        case .called:
+            row.failedCount > 0 ? .red : .green
+        case .missing:
+            .orange
+        case .conditional:
+            .secondary
+        }
+    }
+
+    private func toolDisplayName(_ name: String) -> String {
+        MeetingTruthToolAuditSummary.make(from: []).rows.first { $0.functionName == name }?.title ?? name
     }
 
     private var workflowRows: [CentralReviewWorkflowRow] {

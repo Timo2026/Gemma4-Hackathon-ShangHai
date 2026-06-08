@@ -1193,6 +1193,184 @@ struct MeetingTruthToolCallRecord: Identifiable, Hashable, Codable {
     var replacementValidationResult: MeetingTruthReplacementValidationResult? = nil
 }
 
+struct MeetingTruthToolAuditSummary: Hashable {
+    struct Row: Identifiable, Hashable {
+        var id: String { functionName }
+        var functionName: String
+        var title: String
+        var callReason: String
+        var count: Int
+        var nativeCount: Int
+        var fallbackCount: Int
+        var autoCount: Int
+        var executedCount: Int
+        var skippedCount: Int
+        var failedCount: Int
+        var stateText: String
+        var stateKind: StateKind
+
+        enum StateKind: Hashable {
+            case called
+            case missing
+            case conditional
+        }
+    }
+
+    var rows: [Row]
+    var totalCount: Int
+    var nativeCount: Int
+    var fallbackCount: Int
+    var autoCount: Int
+    var executedCount: Int
+    var lastNativeFunctionName: String?
+    var stopTitle: String
+    var stopDetail: String
+    var missingRequiredTools: [String]
+
+    static let requiredOrder = [
+        "extract_meeting_fact_candidates",
+        "filter_reviewable_facts",
+        "detect_asr_conflicts",
+        "retrieve_supporting_evidence",
+        "score_fact_candidates",
+        "make_fact_decision"
+    ]
+
+    static let conditionalOrder = [
+        "create_human_review_task"
+    ]
+
+    static func make(from records: [MeetingTruthToolCallRecord]) -> MeetingTruthToolAuditSummary {
+        let orderedNames = requiredOrder + conditionalOrder
+        let rows = orderedNames.map { name in
+            let matching = records.filter { $0.functionName == name }
+            let native = matching.filter { ($0.invocationSource ?? .unknown) == .nativeToolCall }.count
+            let fallback = matching.filter { ($0.invocationSource ?? .unknown) == .jsonFallback }.count
+            let auto = matching.filter { ($0.invocationSource ?? .unknown) == .autoPipeline }.count
+            let executed = matching.filter { $0.status == .executed }.count
+            let skipped = matching.filter { $0.status == .skipped }.count
+            let failed = matching.filter { $0.status == .failed }.count
+            let isConditional = conditionalOrder.contains(name)
+            let stateKind: Row.StateKind = matching.isEmpty ? (isConditional ? .conditional : .missing) : .called
+            return Row(
+                functionName: name,
+                title: toolTitle(name),
+                callReason: callReason(name),
+                count: matching.count,
+                nativeCount: native,
+                fallbackCount: fallback,
+                autoCount: auto,
+                executedCount: executed,
+                skippedCount: skipped,
+                failedCount: failed,
+                stateText: stateText(name: name, records: records, matching: matching, isConditional: isConditional),
+                stateKind: stateKind
+            )
+        }
+        let missingRequired = requiredOrder.filter { name in
+            records.contains { $0.functionName == name } == false
+        }
+        let lastNative = records.last { ($0.invocationSource ?? .unknown) == .nativeToolCall }?.functionName
+        let stop = stopExplanation(records: records, missingRequired: missingRequired)
+        return MeetingTruthToolAuditSummary(
+            rows: rows,
+            totalCount: records.count,
+            nativeCount: records.filter { ($0.invocationSource ?? .unknown) == .nativeToolCall }.count,
+            fallbackCount: records.filter { ($0.invocationSource ?? .unknown) == .jsonFallback }.count,
+            autoCount: records.filter { ($0.invocationSource ?? .unknown) == .autoPipeline }.count,
+            executedCount: records.filter { $0.status == .executed }.count,
+            lastNativeFunctionName: lastNative,
+            stopTitle: stop.title,
+            stopDetail: stop.detail,
+            missingRequiredTools: missingRequired
+        )
+    }
+
+    private static func toolTitle(_ name: String) -> String {
+        switch name {
+        case "extract_meeting_fact_candidates": "抽取事实候选"
+        case "filter_reviewable_facts": "过滤可复核事实"
+        case "detect_asr_conflicts": "检查转写冲突"
+        case "retrieve_supporting_evidence": "检索支持证据"
+        case "score_fact_candidates": "候选事实评分"
+        case "make_fact_decision": "标准事实裁决"
+        case "create_human_review_task": "生成人工确认"
+        default: name
+        }
+    }
+
+    private static func callReason(_ name: String) -> String {
+        switch name {
+        case "extract_meeting_fact_candidates":
+            "入口步骤。让 Gemma 先判断哪些会议事实可能影响纪要、待办、参会人、项目名、风险清单或证据备注。"
+        case "filter_reviewable_facts":
+            "准入步骤。过滤口语填充、泛泛流程短语和低价值动词，只保留会影响成果包的事实。"
+        case "detect_asr_conflicts":
+            "冲突发现。把多路 ASR 中的人名、术语、数字、行动项差异压缩成可裁决候选。"
+        case "retrieve_supporting_evidence":
+            "证据检索。围绕候选去查 ASR、会议通知、手写纪要、OCR、rawVision、术语表和人工确认。"
+        case "score_fact_candidates":
+            "评分步骤。按事实类型和证据权重给候选打分，避免简单多数投票。"
+        case "make_fact_decision":
+            "裁决步骤。把评分结果转成 accepted、corrected、conflicted、needsHumanReview 或 rejected。"
+        case "create_human_review_task":
+            "条件步骤。只有标准裁决为 conflicted 或 needsHumanReview 时才需要调用。"
+        default:
+            "工具函数步骤。"
+        }
+    }
+
+    private static func stateText(
+        name: String,
+        records: [MeetingTruthToolCallRecord],
+        matching: [MeetingTruthToolCallRecord],
+        isConditional: Bool
+    ) -> String {
+        if !matching.isEmpty {
+            let native = matching.filter { ($0.invocationSource ?? .unknown) == .nativeToolCall }.count
+            let auto = matching.filter { ($0.invocationSource ?? .unknown) == .autoPipeline }.count
+            if native > 0 { return "Gemma 原生调用 \(native) 次" }
+            if auto > 0 { return "系统自动补全 \(auto) 次" }
+            return "已执行 \(matching.count) 次"
+        }
+        if isConditional {
+            let needsReview = records.contains { record in
+                record.factDecision?.status == .conflicted || record.factDecision?.status == .needsHumanReview
+            }
+            return needsReview ? "应生成，等待补全" : "未触发：没有冲突或人工确认需求"
+        }
+        if name == "make_fact_decision", records.contains(where: { $0.functionName == "score_fact_candidates" }) {
+            return "未原生调用：Gemma 在评分后停止"
+        }
+        return "未执行"
+    }
+
+    private static func stopExplanation(
+        records: [MeetingTruthToolCallRecord],
+        missingRequired: [String]
+    ) -> (title: String, detail: String) {
+        guard !records.isEmpty else {
+            return ("尚未进入工具链", "本轮没有工具流水，可能是未运行证据核验，或 endpoint 没有返回 tool_calls。")
+        }
+        if missingRequired.isEmpty {
+            let decision = records.last { $0.functionName == "make_fact_decision" }?.factDecision
+            if decision?.status == .conflicted || decision?.status == .needsHumanReview {
+                let hasReviewTask = records.contains { $0.functionName == "create_human_review_task" }
+                return hasReviewTask
+                    ? ("完整闭环：已生成确认任务", "标准事实裁决需要人工确认，系统已继续生成 create_human_review_task。")
+                    : ("等待人工确认任务", "标准事实裁决显示存在冲突或需要人工确认，但尚未看到确认任务步骤。")
+            }
+            return ("完整闭环：无需人工确认", "工具链已执行到 make_fact_decision，裁决没有触发 conflicted 或 needsHumanReview，因此 create_human_review_task 可以不调用。")
+        }
+        if records.contains(where: { $0.functionName == "score_fact_candidates" }),
+           missingRequired.contains("make_fact_decision") {
+            return ("Gemma 在评分后自动停止", "模型看到 score_fact_candidates 的工具返回后认为证据足够，直接返回 stop。它不是接口失败；但若需要标准化审计，应继续补 make_fact_decision。")
+        }
+        let last = records.last.map { toolTitle($0.functionName) } ?? "未知步骤"
+        return ("工具链未到标准终点", "最后执行到 \(last)。缺少必跑步骤：\(missingRequired.map(toolTitle).joined(separator: "、"))。")
+    }
+}
+
 struct MeetingTruthASRConflictFinding: Identifiable, Hashable, Codable {
     enum RiskLevel: String, Hashable, Codable {
         case high

@@ -938,11 +938,9 @@ struct MeetingAIService {
         analysis: MeetingAnalysis?,
         settings: MeetingAISettings
     ) async throws -> MeetingTruthToolCallingRun {
-        let completion = try await requestCompletion(
-            url: url,
-            settings: settings,
-            systemContent: centralReviewToolCallingSystemPrompt,
-            userMessage: centralReviewToolCallingUserMessage(
+        var messages = [
+            ChatRequestMessage(role: "system", content: centralReviewToolCallingSystemPrompt),
+            centralReviewToolCallingUserMessage(
                 transcriptSources: transcriptSources,
                 materials: materials,
                 visualEvidence: visualEvidence,
@@ -951,27 +949,120 @@ struct MeetingAIService {
                 manualConfirmations: manualConfirmations,
                 currentLedger: currentLedger,
                 analysis: analysis
-            ),
-            maxTokens: min(max(settings.resolvedMaxTokens, 900), 2_400),
-            tools: centralReviewToolDefinitions,
-            toolChoice: "auto"
-        )
-        let message = completion.choices.first?.message
-        let nativeCalls = message?.toolCalls.map {
-            MeetingTruthRequestedToolCall(name: $0.function.name, arguments: $0.function.arguments, invocationSource: .nativeToolCall)
-        } ?? []
-        let textCalls = parseStructuredToolCalls(from: message?.content ?? "")
-        let requestedCalls = evidenceToolChainCalls(nativeCalls.isEmpty ? textCalls : nativeCalls)
-        let records = executeCentralReviewToolCalls(
-            requestedCalls,
-            transcriptSources: transcriptSources,
-            materials: materials,
-            visualEvidence: visualEvidence,
-            conflicts: conflicts,
-            factDecisions: factDecisions,
-            manualConfirmations: manualConfirmations
-        )
-        let finalRecords = records
+            )
+        ]
+        var finalRecords: [MeetingTruthToolCallRecord] = []
+        var tokenUsage: MeetingTruthTokenUsage?
+        var fallbackContent = ""
+
+        for _ in 0..<8 {
+            let completion = try await requestCompletion(
+                url: url,
+                settings: settings,
+                messages: messages,
+                maxTokens: min(max(settings.resolvedMaxTokens, 900), 2_400),
+                tools: centralReviewToolDefinitions,
+                toolChoice: "auto"
+            )
+            tokenUsage = tokenUsage?.merged(with: completion.usage?.meetingTruthUsage) ?? completion.usage?.meetingTruthUsage
+            guard let message = completion.choices.first?.message else { break }
+            fallbackContent = message.content
+
+            if !message.toolCalls.isEmpty {
+                messages.append(.assistantToolCalls(message.toolCalls))
+                let nativeCalls = message.toolCalls.map {
+                    MeetingTruthRequestedToolCall(
+                        id: $0.id,
+                        name: $0.function.name,
+                        arguments: $0.function.arguments,
+                        invocationSource: .nativeToolCall
+                    )
+                }
+                let nativeRecords = executeCentralReviewToolCalls(
+                    nativeCalls,
+                    transcriptSources: transcriptSources,
+                    materials: materials,
+                    visualEvidence: visualEvidence,
+                    conflicts: conflicts,
+                    factDecisions: factDecisions,
+                    manualConfirmations: manualConfirmations
+                )
+                finalRecords.append(contentsOf: nativeRecords)
+                for (call, record) in zip(nativeCalls, nativeRecords) {
+                    messages.append(.toolResult(
+                        toolCallID: call.id ?? call.name,
+                        name: call.name,
+                        content: toolResultContent(for: record)
+                    ))
+                }
+                continue
+            }
+
+            let textCalls = parseStructuredToolCalls(from: message.content)
+            if !textCalls.isEmpty && finalRecords.isEmpty {
+                let fallbackCalls = evidenceToolChainCalls(textCalls).enumerated().map { index, call in
+                    MeetingTruthRequestedToolCall(
+                        id: "json-fallback-\(index + 1)",
+                        name: call.name,
+                        arguments: call.arguments,
+                        invocationSource: call.invocationSource
+                    )
+                }
+                messages.append(.assistantToolCalls(fallbackCalls.map {
+                    ChatToolCall(
+                        id: $0.id,
+                        type: "function",
+                        function: .init(name: $0.name, arguments: $0.arguments)
+                    )
+                }))
+                let fallbackRecords = executeCentralReviewToolCalls(
+                    fallbackCalls,
+                    transcriptSources: transcriptSources,
+                    materials: materials,
+                    visualEvidence: visualEvidence,
+                    conflicts: conflicts,
+                    factDecisions: factDecisions,
+                    manualConfirmations: manualConfirmations
+                )
+                finalRecords.append(contentsOf: fallbackRecords)
+                for (call, record) in zip(fallbackCalls, fallbackRecords) {
+                    messages.append(.toolResult(
+                        toolCallID: call.id ?? call.name,
+                        name: call.name,
+                        content: toolResultContent(for: record)
+                    ))
+                }
+                continue
+            }
+            break
+        }
+
+        if finalRecords.isEmpty {
+            let textCalls = parseStructuredToolCalls(from: fallbackContent)
+            finalRecords = executeCentralReviewToolCalls(
+                evidenceToolChainCalls(textCalls),
+                transcriptSources: transcriptSources,
+                materials: materials,
+                visualEvidence: visualEvidence,
+                conflicts: conflicts,
+                factDecisions: factDecisions,
+                manualConfirmations: manualConfirmations
+            )
+        } else {
+            let executedNames = Set(finalRecords.map(\.functionName))
+            let missingCalls = evidenceToolChainCalls([])
+                .filter { !executedNames.contains($0.name) }
+            let supplementalRecords = executeCentralReviewToolCalls(
+                missingCalls,
+                transcriptSources: transcriptSources,
+                materials: materials,
+                visualEvidence: visualEvidence,
+                conflicts: conflicts,
+                factDecisions: factDecisions,
+                manualConfirmations: manualConfirmations
+            )
+            finalRecords.append(contentsOf: supplementalRecords)
+        }
         return MeetingTruthToolCallingRun(
             records: finalRecords,
             comparison: toolCallingComparison(
@@ -982,7 +1073,7 @@ struct MeetingAIService {
                 visualEvidence: visualEvidence,
                 factDecisions: factDecisions
             ),
-            tokenUsage: completion.usage?.meetingTruthUsage
+            tokenUsage: tokenUsage
         )
     }
 
@@ -993,9 +1084,8 @@ struct MeetingAIService {
         Prefer this chain: extract_meeting_fact_candidates -> filter_reviewable_facts -> detect_asr_conflicts -> retrieve_supporting_evidence -> score_fact_candidates -> make_fact_decision -> create_human_review_task only when the decision is conflicted or needsHumanReview.
         Use the first two tools as the semantic risk-admission gate. Do not allow generic process phrases, oral fillers, tool evaluations, or ordinary verb phrases to become human confirmation tasks.
         Use the remaining tools for high-risk ASR disagreement, image/material/glossary grounding, candidate scoring, final fact decisions, and human confirmation tasks.
-        Use tool calls when supported. If the endpoint does not expose native tool calls, return only this JSON shape:
-        {"tool_calls":[{"name":"extract_meeting_fact_candidates","arguments":{"window_hint":"..."}},{"name":"filter_reviewable_facts","arguments":{"candidate_hint":"..."}},{"name":"detect_asr_conflicts","arguments":{"window_hint":"..."}},{"name":"retrieve_supporting_evidence","arguments":{"conflict_id":"..."}},{"name":"score_fact_candidates","arguments":{"conflict_id":"..."}},{"name":"make_fact_decision","arguments":{"conflict_id":"..."}}]}
-        Do not include Markdown or explanations.
+        Use native tool calls. The request already includes a tools array, so do not write a JSON object named tool_calls in message content.
+        Return normal content only after tool results have been provided by the system. Do not include Markdown or explanations.
         """
     }
 
@@ -1150,6 +1240,7 @@ struct MeetingAIService {
         }
         return payload.toolCalls.map {
             MeetingTruthRequestedToolCall(
+                id: nil,
                 name: $0.name,
                 arguments: (try? String(data: JSONEncoder().encode($0.arguments), encoding: .utf8)) ?? "{}",
                 invocationSource: .jsonFallback
@@ -1175,6 +1266,31 @@ struct MeetingAIService {
         return orderedNames.map { name in
             byName[name] ?? MeetingTruthRequestedToolCall(name: name, arguments: "{}", invocationSource: .autoPipeline)
         }
+    }
+
+    private func toolResultContent(for record: MeetingTruthToolCallRecord) -> String {
+        let payload = MeetingTruthToolResultPayload(
+            functionName: record.functionName,
+            argumentsSummary: record.argumentsSummary,
+            resultSummary: record.resultSummary,
+            impactSummary: record.impactSummary,
+            status: record.status.rawValue,
+            asrConflicts: record.asrConflicts ?? [],
+            evidenceChain: record.evidenceChain ?? [],
+            candidateScores: record.candidateScores ?? [],
+            factDecision: record.factDecision,
+            humanReviewTask: record.humanReviewTask,
+            affectedMinutesText: record.affectedMinutesText ?? ""
+        )
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        guard let data = try? encoder.encode(payload),
+              let content = String(data: data, encoding: .utf8) else {
+            return """
+            {"function_name":"\(record.functionName)","status":"\(record.status.rawValue)","result_summary":"\(record.resultSummary)"}
+            """
+        }
+        return content
     }
 
     private func executeCentralReviewToolCalls(
@@ -2714,6 +2830,27 @@ struct MeetingAIService {
         tools: [ChatToolDefinition]? = nil,
         toolChoice: String? = nil
     ) async throws -> ChatCompletionResponse {
+        try await requestCompletion(
+            url: url,
+            settings: settings,
+            messages: [
+                ChatRequestMessage(role: "system", content: systemContent),
+                userMessage
+            ],
+            maxTokens: maxTokens,
+            tools: tools,
+            toolChoice: toolChoice
+        )
+    }
+
+    private func requestCompletion(
+        url: URL,
+        settings: MeetingAISettings,
+        messages: [ChatRequestMessage],
+        maxTokens: Int,
+        tools: [ChatToolDefinition]? = nil,
+        toolChoice: String? = nil
+    ) async throws -> ChatCompletionResponse {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -2724,10 +2861,7 @@ struct MeetingAIService {
 
         let payload = ChatCompletionRequest(
             model: settings.model,
-            messages: [
-                ChatRequestMessage(role: "system", content: systemContent),
-                userMessage
-            ],
+            messages: messages,
             temperature: min(settings.resolvedTemperature, 0.2),
             maxTokens: maxTokens,
             enableThinking: nil,
@@ -3690,9 +3824,38 @@ private struct MeetingTruthToolCallingRun {
 }
 
 private struct MeetingTruthRequestedToolCall {
+    var id: String? = nil
     var name: String
     var arguments: String
     var invocationSource: MeetingTruthToolInvocationSource
+}
+
+private struct MeetingTruthToolResultPayload: Encodable {
+    var functionName: String
+    var argumentsSummary: String
+    var resultSummary: String
+    var impactSummary: String
+    var status: String
+    var asrConflicts: [MeetingTruthASRConflictFinding]
+    var evidenceChain: [MeetingTruthEvidenceSupport]
+    var candidateScores: [MeetingTruthCandidateScore]
+    var factDecision: MeetingTruthFactDecisionTrace?
+    var humanReviewTask: MeetingTruthHumanReviewTask?
+    var affectedMinutesText: String
+
+    enum CodingKeys: String, CodingKey {
+        case functionName = "function_name"
+        case argumentsSummary = "arguments_summary"
+        case resultSummary = "result_summary"
+        case impactSummary = "impact_summary"
+        case status
+        case asrConflicts = "asr_conflicts"
+        case evidenceChain = "evidence_chain"
+        case candidateScores = "candidate_scores"
+        case factDecision = "fact_decision"
+        case humanReviewTask = "human_review_task"
+        case affectedMinutesText = "affected_minutes_text"
+    }
 }
 
 private struct MeetingTruthStructuredToolCallPayload: Decodable {
@@ -3754,23 +3917,83 @@ private struct ChatRequestMessage: Encodable {
     let role: String
     let content: ChatRequestContent
     let reasoningContent: String?
+    let toolCalls: [ChatToolCall]?
+    let toolCallID: String?
+    let name: String?
 
     init(role: String, content: String, reasoningContent: String? = nil) {
         self.role = role
         self.content = .text(content)
         self.reasoningContent = reasoningContent
+        self.toolCalls = nil
+        self.toolCallID = nil
+        self.name = nil
     }
 
     init(role: String, parts: [ChatMessageContentPart], reasoningContent: String? = nil) {
         self.role = role
         self.content = .parts(parts)
         self.reasoningContent = reasoningContent
+        self.toolCalls = nil
+        self.toolCallID = nil
+        self.name = nil
+    }
+
+    static func assistantToolCalls(_ toolCalls: [ChatToolCall]) -> ChatRequestMessage {
+        ChatRequestMessage(
+            role: "assistant",
+            content: .text(""),
+            reasoningContent: nil,
+            toolCalls: toolCalls,
+            toolCallID: nil,
+            name: nil
+        )
+    }
+
+    static func toolResult(toolCallID: String, name: String, content: String) -> ChatRequestMessage {
+        ChatRequestMessage(
+            role: "tool",
+            content: .text(content),
+            reasoningContent: nil,
+            toolCalls: nil,
+            toolCallID: toolCallID,
+            name: name
+        )
+    }
+
+    private init(
+        role: String,
+        content: ChatRequestContent,
+        reasoningContent: String?,
+        toolCalls: [ChatToolCall]?,
+        toolCallID: String?,
+        name: String?
+    ) {
+        self.role = role
+        self.content = content
+        self.reasoningContent = reasoningContent
+        self.toolCalls = toolCalls
+        self.toolCallID = toolCallID
+        self.name = name
     }
 
     enum CodingKeys: String, CodingKey {
         case role
         case content
         case reasoningContent = "reasoning_content"
+        case toolCalls = "tool_calls"
+        case toolCallID = "tool_call_id"
+        case name
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(role, forKey: .role)
+        try container.encode(content, forKey: .content)
+        try container.encodeIfPresent(reasoningContent, forKey: .reasoningContent)
+        try container.encodeIfPresent(toolCalls, forKey: .toolCalls)
+        try container.encodeIfPresent(toolCallID, forKey: .toolCallID)
+        try container.encodeIfPresent(name, forKey: .name)
     }
 }
 
@@ -3883,12 +4106,12 @@ private struct ChatResponseMessage: Decodable {
     }
 }
 
-private struct ChatToolCall: Decodable {
+private struct ChatToolCall: Codable {
     let id: String?
     let type: String?
     let function: Function
 
-    struct Function: Decodable {
+    struct Function: Codable {
         let name: String
         let arguments: String
     }

@@ -248,6 +248,7 @@ struct MeetingTruthToolCallingABView: View {
                     )
                     .frame(minHeight: 180)
                 } else {
+                    toolAuditOverview(records: records)
                     VStack(alignment: .leading, spacing: 10) {
                         ForEach(records) { record in
                             ABToolCallRow(record: record)
@@ -255,6 +256,54 @@ struct MeetingTruthToolCallingABView: View {
                     }
                 }
             }
+        }
+    }
+
+    private func toolAuditOverview(records: [MeetingTruthToolCallRecord]) -> some View {
+        let summary = MeetingTruthToolAuditSummary.make(from: records)
+        return VStack(alignment: .leading, spacing: 10) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                ABOverviewBlock(title: "调用总数", text: "\(summary.totalCount) 次；已执行 \(summary.executedCount) 步", tint: .blue)
+                ABOverviewBlock(title: "原生调用", text: "\(summary.nativeCount) 次；fallback \(summary.fallbackCount)，auto \(summary.autoCount)", tint: summary.nativeCount > 0 ? .green : .orange)
+                ABOverviewBlock(title: "停止原因", text: "\(summary.stopTitle)\n\(summary.stopDetail)", tint: summary.missingRequiredTools.isEmpty ? .green : .orange)
+            }
+            VStack(alignment: .leading, spacing: 6) {
+                ForEach(summary.rows) { row in
+                    HStack(alignment: .top, spacing: 8) {
+                        ABBadge(text: "\(row.count) 次", color: toolAuditRowColor(row))
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack(spacing: 6) {
+                                Text(row.title)
+                                    .font(.caption.weight(.semibold))
+                                ABBadge(text: row.stateText, color: toolAuditRowColor(row))
+                            }
+                            Text(row.callReason)
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                            if row.count > 0 {
+                                Text("native \(row.nativeCount) · fallback \(row.fallbackCount) · auto \(row.autoCount) · executed \(row.executedCount) · skipped \(row.skippedCount) · failed \(row.failedCount)")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .padding(10)
+        .background(.blue.opacity(0.06))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+
+    private func toolAuditRowColor(_ row: MeetingTruthToolAuditSummary.Row) -> Color {
+        switch row.stateKind {
+        case .called:
+            row.failedCount > 0 ? .red : .green
+        case .missing:
+            .orange
+        case .conditional:
+            .secondary
         }
     }
 

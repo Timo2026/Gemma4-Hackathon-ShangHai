@@ -1,5 +1,8 @@
 # Lonely FM 技术报告
 
+PDF 版技术报告：`docs/Lonely-FM-Gemma4-Hackathon-Submission.pdf`  
+演示视频：https://youtu.be/RzLeD7CA_Sw
+
 ## 1. 项目背景
 
 Lonely FM 面向一个具体但普遍的社会问题：很多人并不是没有联系人，而是在低落、疲惫、深夜或独处时，不知道该把一句“我好累”说给谁听。我们希望用 Gemma 4 做一个更低门槛、更私密、更像通话的语音陪伴工具。

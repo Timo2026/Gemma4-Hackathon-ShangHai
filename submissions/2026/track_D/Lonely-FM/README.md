@@ -5,7 +5,8 @@
 成员：Johnny Wang、Tim Tsui  
 线上体验：https://lonely-fm.vercel.app/  
 完整项目仓库：https://github.com/JohnnyWang8802/lonely-fm  
-演示视频：随现场赛材料表单提交，时长控制在 5 分钟以内
+演示视频：https://youtu.be/RzLeD7CA_Sw  
+技术报告：`docs/TECHNICAL_REPORT.md`，PDF 版见 `docs/Lonely-FM-Gemma4-Hackathon-Submission.pdf`
 
 Lonely FM 是一个基于 Gemma 4 的纯语音陪伴工具，面向深夜、独居、疲惫或暂时不知道该向谁开口的人。它不是替代朋友、家人或专业帮助，而是在用户最孤独、最说不出口的时刻，先提供一个愿意认真听完的声音。
 
@@ -122,7 +123,7 @@ Lonely FM 属于 Social Good 场景，隐私是产品设计的一部分：
 backend/       FastAPI 实时语音后端
 frontend/      React + Vite 前端
 supabase/      长期记忆数据库迁移
-docs/          技术报告
+docs/          技术报告（Markdown + PDF）
 requirements.txt
 ```
 

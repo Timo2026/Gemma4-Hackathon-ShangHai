@@ -1,0 +1,52 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Session {{ eval_session.id }} · MindForm Console{% endblock %}
+
+{% block content %}
+<section class="stack">
+    <div>
+        <p class="eyebrow">Session {{ eval_session.id }}</p>
+        <h1 class="page-h">{{ eval_session.participant_id }}</h1>
+        <p class="lead">Condition: {{ eval_session.condition }} · Started: {{ eval_session.started_at }} · Ended: {{ eval_session.ended_at }}</p>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Interaction turns</h2>
+        <div class="stack" style="margin-top:14px;">
+            {% for turn in turns %}
+                <div class="row-item">
+                    <p class="meta">{{ turn.phase }} · Turn {{ turn.turn_number }} · {{ turn.created_at }}</p>
+                    <p style="margin-top:8px;"><strong>User:</strong> {{ turn.user_input }}</p>
+                    <p style="margin-top:4px;"><strong>Agent:</strong> {{ turn.agent_output }}</p>
+                </div>
+            {% empty %}
+                <p class="muted">No turns logged.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Block ratings</h2>
+        <div class="stack" style="margin-top:14px;">
+            {% for rating in ratings %}
+                <div class="row-item">
+                    <p>{{ rating.phase }} · C {{ rating.consistency_score }} · A {{ rating.adaptation_score }} · S {{ rating.stability_score }} · B {{ rating.believability_score }}</p>
+                    {% if rating.comment %}<p class="muted" style="margin-top:6px;">{{ rating.comment }}</p>{% endif %}
+                </div>
+            {% empty %}
+                <p class="muted">No ratings logged.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Final preference</h2>
+        {% if final_preference %}
+            <p style="margin-top:14px;"><strong>Preferred system:</strong> {{ final_preference.preferred_system }}</p>
+            {% if final_preference.comment %}<p class="muted" style="margin-top:6px;">{{ final_preference.comment }}</p>{% endif %}
+        {% else %}
+            <p class="muted" style="margin-top:14px;">No final preference submitted.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

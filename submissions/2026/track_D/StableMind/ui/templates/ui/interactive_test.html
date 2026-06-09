@@ -1,0 +1,73 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Interactive Test · MindForm Console{% endblock %}
+
+{% block content %}
+<section class="stack">
+    <div>
+        <p class="eyebrow">Single step</p>
+        <h1 class="page-h">Interactive Test</h1>
+        <p class="lead">Run one MindForm engine step and inspect the internal state it produces.</p>
+    </div>
+
+    <div class="panel stack">
+        {% if active_evaluation_session %}
+            <div class="note note-info">Logging to active session: {{ active_evaluation_session.participant_id }} ({{ active_evaluation_session.condition }})</div>
+        {% endif %}
+
+        <form method="post" class="stack">
+            {% csrf_token %}
+            {% if active_evaluation_session %}
+                <div class="field">
+                    <label>Evaluation phase</label>
+                    <select name="evaluation_phase">
+                        {% for phase in evaluation_phases %}
+                            <option value="{{ phase }}" {% if selected_phase == phase %}selected{% endif %}>{{ phase }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            <div class="field">
+                <label>Test input</label>
+                <textarea name="message" placeholder="Type a test input…">{% if user_text %}{{ user_text }}{% endif %}</textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Run test step</button>
+        </form>
+
+        {% if error %}
+            <div class="note note-err">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    {% if result %}
+        <div class="grid grid-2">
+            <div class="kv"><b>Turn</b> {{ result.turn }}</div>
+            <div class="kv"><b>Input</b> {{ result.input }}</div>
+            <div class="kv"><b>Buffer size</b> {{ result.buffer_size }}</div>
+            <div class="kv"><b>Did ruminate</b> {{ result.did_ruminate }}</div>
+        </div>
+
+        <div class="panel">
+            <h2 class="panel-h">Perceived entities</h2>
+            {% if result.perceived_entities %}
+                <div class="stack" style="margin-top:14px;">
+                    {% for item in result.perceived_entities %}
+                        <pre>{{ item }}</pre>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="muted" style="margin-top:8px;">No perceived entities.</p>
+            {% endif %}
+        </div>
+
+        <div class="panel">
+            <h2 class="panel-h">Beliefs</h2>
+            {% if result.beliefs %}
+                <pre style="margin-top:14px;">{{ result.beliefs }}</pre>
+            {% else %}
+                <p class="muted" style="margin-top:8px;">No beliefs returned for this step.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

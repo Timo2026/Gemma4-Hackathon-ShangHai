@@ -1,0 +1,25 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Create Persona · MindForm Console{% endblock %}
+
+{% block content %}
+<section style="max-width:640px;">
+    <p class="eyebrow">Bootstrap</p>
+    <h1 class="page-h">Create Persona</h1>
+    <p class="lead">This reinitializes the persona, state, and memory files. Use it to start a fresh identity from scratch.</p>
+
+    <div class="panel stack" style="margin-top:32px;">
+        {% if success_message %}
+            <div class="note note-ok">{{ success_message }}</div>
+        {% endif %}
+        {% if error_message %}
+            <div class="note note-err">{{ error_message }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <button class="btn btn-primary" type="submit">Initialize fresh persona</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

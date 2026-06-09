@@ -1,0 +1,53 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Talk · MindForm Console{% endblock %}
+
+{% block content %}
+<section style="max-width:760px;">
+    <p class="eyebrow">Conversational interface</p>
+    <h1 class="page-h">Talk with MindForm</h1>
+    <p class="lead">Ask the agent about beliefs it already holds. Answers are rephrased from existing state — no new facts are invented.</p>
+
+    <div class="panel stack" style="margin-top:32px;">
+        {% if active_evaluation_session %}
+            <div class="note note-info">Logging to active session: {{ active_evaluation_session.participant_id }} ({{ active_evaluation_session.condition }})</div>
+        {% endif %}
+
+        <form method="post" class="stack">
+            {% csrf_token %}
+            {% if active_evaluation_session %}
+                <div class="field">
+                    <label>Evaluation phase</label>
+                    <select name="evaluation_phase">
+                        {% for phase in evaluation_phases %}
+                            <option value="{{ phase }}" {% if selected_phase == phase %}selected{% endif %}>{{ phase }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+            <div class="field">
+                <label>Your message</label>
+                <textarea name="message" placeholder="Type your message…">{% if user_text %}{{ user_text }}{% endif %}</textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Send</button>
+        </form>
+
+        {% if error %}
+            <div class="note note-err">{{ error }}</div>
+        {% endif %}
+    </div>
+
+    {% if answer %}
+        <div class="stack" style="margin-top:24px;">
+            <div class="bubble">
+                <div class="bubble-h">You</div>
+                <p>{{ user_text }}</p>
+            </div>
+            <div class="bubble">
+                <div class="bubble-h">Agent</div>
+                <p>{{ answer }}</p>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

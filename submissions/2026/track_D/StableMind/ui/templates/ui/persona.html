@@ -1,0 +1,31 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Persona · MindForm Console{% endblock %}
+
+{% block content %}
+<section class="stack">
+    <div>
+        <p class="eyebrow">State</p>
+        <h1 class="page-h">Persona Viewer</h1>
+        <p class="lead">The current immutable, stable, and dynamic persona state.</p>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Immutable</h2>
+        <p class="panel-sub">Fixed identity — never changes.</p>
+        <pre>{{ immutable|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Stable</h2>
+        <p class="panel-sub">Slow-moving traits and beliefs.</p>
+        <pre>{{ stable|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Dynamic</h2>
+        <p class="panel-sub">Fast-moving mood and working memory.</p>
+        <pre>{{ dynamic|pprint }}</pre>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,100 @@
+{
+  "local_patient": [
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 10:56:56",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 10:57:26",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 10:57:52",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 10:58:52",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 10:59:11",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 11:07:27",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_suspicio",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 11:37:33",
+      "event_type": "suspicion",
+      "severity": "medium",
+      "description": "妈妈昨晚起来四次，今天一直说有人偷她的钱，晚饭只吃了几口。我也快撑不住了。",
+      "evidence_text": "偷; 有人",
+      "frequency": 4,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    },
+    {
+      "event_id": "evt_20260605_medicati",
+      "patient_id": "local_patient",
+      "timestamp": "2026-06-05 13:15:02",
+      "event_type": "medication_refusal",
+      "severity": "medium",
+      "description": "不肯吃药",
+      "evidence_text": "不肯吃药",
+      "frequency": null,
+      "linked_plan_id": null,
+      "outcome": "unknown"
+    }
+  ]
+}

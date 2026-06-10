@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: lvxiangbao-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: lvxiangbao
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: lvxiangbao-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lvxiangbao-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:root@mysql:3306/lvxiangbao?charset=utf8mb4
+      - REDIS_URL=redis://redis:6379/0
+      - GMI_API_KEY=${GMI_API_KEY}
+      - GMI_BASE_URL=${GMI_BASE_URL}
+      - GMI_MODEL=${GMI_MODEL}
+      - SECRET_KEY=${SECRET_KEY:-lvxiangbao-secret-key}
+      - DEBUG=false
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads:/app/uploads
+
+volumes:
+  mysql_data:
+  redis_data:
+  uploads:

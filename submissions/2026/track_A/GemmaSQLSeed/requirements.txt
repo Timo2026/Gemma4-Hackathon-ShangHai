@@ -22,8 +22,9 @@ mimesis>=18.0
 # Optional - Progress
 tqdm>=4.66
 
-# AI Plugin (sqlseed-ai)
+# AI Plugin (sqlseed-ai) - Gemma 4 Support
 openai>=1.0
+google-generativeai>=0.8
 
 # MCP Server (mcp-server-sqlseed)
 mcp>=1.0

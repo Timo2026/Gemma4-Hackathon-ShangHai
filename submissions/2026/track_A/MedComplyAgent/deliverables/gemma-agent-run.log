@@ -1,0 +1,23 @@
+hedis-ai-review-backend  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+hedis-ai-review-backend  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+hedis-ai-review-backend  | INFO:     Started server process [8]
+hedis-ai-review-backend  | INFO:     Waiting for application startup.
+hedis-ai-review-backend  | INFO:     Application startup complete.
+hedis-ai-review-backend  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP mode=gemma_agent phase=read_file seconds=0.001 input_chars=3428
+hedis-ai-review-backend  | INFO:     agent loop measure=CBP planner_step=1/5
+hedis-ai-review-backend  | INFO:     agent llm_request measure=CBP planner_step=1 model=google/gemma-4-26b-a4b-it tool_choice=auto tools=get_encounter_info,get_bp_readings,get_lab_values
+hedis-ai-review-backend  | INFO:     agent llm_tool_calls measure=CBP planner_step=1 count=1 calls=[{"id": "chatcmpl-tool-abaefaf7466cb910", "name": "get_encounter_info", "arguments": {"measure": "CBP"}}]
+hedis-ai-review-backend  | INFO:     agent step=1 actor=gemma action=get_encounter_info memory=encounter=ED eligible=False summary=Encounter ED on 05/05/2026 (excluded) arguments={'measure': 'CBP'}
+hedis-ai-review-backend  | INFO:     agent loop measure=CBP planner_step=2/5
+hedis-ai-review-backend  | INFO:     agent llm_request measure=CBP planner_step=2 model=google/gemma-4-26b-a4b-it tool_choice=auto tools=get_encounter_info,get_bp_readings,get_lab_values
+hedis-ai-review-backend  | INFO:     agent llm_tool_calls measure=CBP planner_step=2 count=1 calls=[{"id": "chatcmpl-tool-90f60153a9bd757e", "name": "get_bp_readings", "arguments": {"date_range": "2026", "measure": "CBP"}}]
+hedis-ai-review-backend  | INFO:     agent step=2 actor=gemma action=get_bp_readings memory=encounter=ED eligible=False; bp_readings=1 summary=Collected 1 blood pressure reading(s) arguments={'date_range': '2026', 'measure': 'CBP'}
+hedis-ai-review-backend  | INFO:     agent local_stop measure=CBP planner_step=2 tool_steps=2 final_summary=Evidence collection complete for CBP: collected encounter context and 1 blood pressure reading(s).
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP mode=gemma_agent phase=call_agent seconds=16.347
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP phase=normalize_payload seconds=0.000
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP phase=prepare_extraction_record seconds=0.007
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP phase=evaluate_rules seconds=0.004 evaluations=1
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP phase=db_commit seconds=0.009
+hedis-ai-review-backend  | INFO:     extraction timing task_id=1 measure=CBP phase=total seconds=16.368
+hedis-ai-review-backend  | INFO:     192.168.65.1:22483 - "POST /api/tasks/1/extract HTTP/1.1" 200 OK

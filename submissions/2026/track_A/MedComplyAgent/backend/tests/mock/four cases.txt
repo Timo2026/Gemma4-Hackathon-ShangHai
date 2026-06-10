@@ -1,0 +1,136 @@
+Here are four mock EHR office visit notes designed to test blood pressure extraction logic, progressing from easy to tricky scenarios.
+
+***
+
+### CASE 1 (Easy): Clear, Single Reading in Structured Vitals
+
+**Demographics**
+Patient Name: William Carter
+DOB: 08/12/1961 (Age: 64)
+Sex: Male
+MRN: 8849201
+
+**Encounter Info**
+Date of Service: 05/03/2026
+Encounter Type: Office Visit - Routine Follow-up
+Provider: Dr. Sarah Jenkins
+
+**Vital Signs**
+BP: 128/82
+HR: 72 bpm
+RR: 16
+Temp: 98.4 F
+Wt: 195 lbs
+
+**Labs/Results**
+Lipid Panel (04/15/2026): LDL 95 mg/dL, HDL 45 mg/dL, Triglycerides 140 mg/dL.
+
+**Assessment/Plan**
+1. Essential Hypertension: Well-controlled on current regimen.
+2. Hyperlipidemia: Stable.
+Plan: Continue Lisinopril 20mg daily. Continue Atorvastatin 40mg daily. Return to clinic in 6 months.
+
+**Provider Notes**
+Patient presents today for a routine 6-month follow-up. He reports taking his medications as prescribed and denies any chest pain, shortness of breath, dizziness, or headaches. He is walking 2 miles a day. No acute distress noted on exam.
+
+***
+
+### CASE 2 (Medium): Multiple Readings on Same Date with Text Reference
+
+**Demographics**
+Patient Name: Linda Martinez
+DOB: 03/25/1954 (Age: 72)
+Sex: Female
+MRN: 3392104
+
+**Encounter Info**
+Date of Service: 05/03/2026
+Encounter Type: Office Visit - Chronic Care Management
+Provider: Dr. David Cho
+
+**Vital Signs**
+BP: 145/92 (Taken: 09:15 AM)
+BP: 132/86 (Taken: 09:35 AM)
+HR: 88 bpm
+RR: 18
+Temp: 98.7 F
+Wt: 162 lbs
+
+**Labs/Results**
+HbA1c (05/01/2026): 6.8%
+BMP (05/01/2026): Creatinine 1.0 mg/dL, K+ 4.1 mEq/L.
+
+**Assessment/Plan**
+1. Essential Hypertension: Fair control.
+2. Type 2 Diabetes Mellitus: Well-controlled.
+Plan: Continue Amlodipine 5mg daily. Continue Metformin 1000mg BID. 
+
+**Provider Notes**
+Patient arrived slightly late and anxious due to traffic. Initial vitals showed elevated blood pressure. She rested in the exam room for 20 minutes and blood pressure improved on recheck. Patient denies any symptoms of blurred vision, headache, or focal weakness. Will maintain current Amlodipine dosage and monitor.
+
+***
+
+### CASE 3 (Hard): Auto-imported ED Vitals with Current BP Hidden in Free Text
+
+**Demographics**
+Patient Name: Robert Johnson
+DOB: 11/04/1950 (Age: 75)
+Sex: Male
+MRN: 7723912
+
+**Encounter Info**
+Date of Service: 05/03/2026
+Encounter Type: Office Visit - Hospital/ED Follow-up
+Provider: Dr. Emily Rostova
+
+**Vital Signs**
+*Note: Vitals auto-populated from last encountered system interface (ED Visit - 04/30/2026)*
+BP: 185/110
+HR: 102 bpm
+RR: 20
+Temp: 99.1 F
+Wt: 210 lbs
+
+**Labs/Results**
+Troponin I (04/30/2026): < 0.01 ng/mL
+ECG (04/30/2026): Normal sinus rhythm, no ST segment changes.
+
+**Assessment/Plan**
+1. Hypertensive Urgency (Resolved): Patient was seen in the ED 3 days ago.
+2. Medication Non-compliance: Addressed today. 
+Plan: Resume Losartan 50mg and add HCTZ 12.5mg. Close follow-up in 2 weeks.
+
+**Provider Notes**
+Patient is seen today for a follow-up after an Emergency Department visit 3 days ago for a severe headache and hypertensive urgency. He admits he ran out of his Losartan a week ago and did not call for a refill. Today in the office, he is completely asymptomatic. I performed a manual exam. His lungs are clear, and heart has regular rate and rhythm. Checked his vitals manually in the room just now and his blood pressure is 134/84 seated on the left arm, heart rate 78. Prescriptions sent to the pharmacy. Stressed the importance of medication adherence.
+
+***
+
+### CASE 4 (Tricky): Telehealth Encounter with Remote Device BP and Legacy ED BP
+
+**Demographics**
+Patient Name: Susan Chen
+DOB: 07/19/1963 (Age: 62)
+Sex: Female
+MRN: 5541098
+
+**Encounter Info**
+Date of Service: 05/03/2026
+Encounter Type: Telehealth - Video Follow-up
+Provider: Dr. Marcus Vance
+
+**Vital Signs**
+*Historical Vitals (ED Encounter 12/10/2025)*
+BP: 170/95
+HR: 85 bpm
+Temp: 98.6 F
+
+**Labs/Results**
+Continuous Glucose Monitor summary reviewed. Time in range (70-180 mg/dL) is 82%.
+
+**Assessment/Plan**
+1. Primary Hypertension: Improving on new regimen. 
+2. Type 2 Diabetes: Stable.
+Plan: Patient successfully synced her Omron remote monitoring device via the patient portal prior to this call. Reviewing the flowsheet, her average blood pressure over the last 14 days is 126/78. She noted this morning's reading at home was 128/80. This is a vast improvement from her older ED readings from last year. We will continue her current dose of Chlorthalidone 25mg.
+
+**Provider Notes**
+Visit conducted via secure, HIPAA-compliant audiovisual teleconferencing. Patient is at her home in California and confirms she can see and hear me clearly. Total time spent with patient: 20 minutes, with >50% spent counseling on diet and medication adherence. She feels well, denies peripheral edema, and has no complaints regarding her diuretic. Will plan for an in-person visit with standard lab work in 3 months.

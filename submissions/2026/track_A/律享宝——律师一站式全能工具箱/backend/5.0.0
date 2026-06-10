@@ -1,0 +1,30 @@
+Requirement already satisfied: sqlalchemy in c:\program files\python\lib\site-packages (1.3.18)
+Collecting sqlalchemy
+  Downloading sqlalchemy-2.0.50-cp38-cp38-win_amd64.whl.metadata (9.8 kB)
+Requirement already satisfied: redis in c:\program files\python\lib\site-packages (3.5.3)
+Collecting redis
+  Downloading redis-6.1.1-py3-none-any.whl.metadata (10 kB)
+Requirement already satisfied: typing-extensions>=4.6.0 in c:\program files\python\lib\site-packages (from sqlalchemy) (4.13.2)
+Collecting greenlet>=1 (from sqlalchemy)
+  Downloading greenlet-3.1.1-cp38-cp38-win_amd64.whl.metadata (3.9 kB)
+Collecting async-timeout>=4.0.3 (from redis)
+  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Downloading sqlalchemy-2.0.50-cp38-cp38-win_amd64.whl (2.2 MB)
+   ---------------------------------------- 2.2/2.2 MB 28.4 kB/s eta 0:00:00
+Downloading redis-6.1.1-py3-none-any.whl (273 kB)
+Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Downloading greenlet-3.1.1-cp38-cp38-win_amd64.whl (298 kB)
+Installing collected packages: greenlet, async-timeout, sqlalchemy, redis
+  Attempting uninstall: greenlet
+    Found existing installation: greenlet 0.4.16
+    Uninstalling greenlet-0.4.16:
+      Successfully uninstalled greenlet-0.4.16
+  Attempting uninstall: sqlalchemy
+    Found existing installation: SQLAlchemy 1.3.18
+    Uninstalling SQLAlchemy-1.3.18:
+      Successfully uninstalled SQLAlchemy-1.3.18
+  Attempting uninstall: redis
+    Found existing installation: redis 3.5.3
+    Uninstalling redis-3.5.3:
+      Successfully uninstalled redis-3.5.3
+Successfully installed async-timeout-5.0.1 greenlet-3.1.1 redis-6.1.1 sqlalchemy-2.0.50

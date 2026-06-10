@@ -1,0 +1,1074 @@
+=== TABLE 0 ===
+Plaintext
+<#-- 民事答辩状（金融借款合同纠纷） MS-AY-004 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事答辩状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事答辩状</div>
+    
+    <div class="party-info">
+        答辩人：${respondent_info.name}，${respondent_info.gender}，${respondent_info.birth_date}出生，${respondent_info.nation}族，住${respondent_info.address}，联系电话：${respondent_info.phone}。
+    </div>
+    <div class="party-info">
+        被答辩人：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}。
+    </div>
+
+    <div class="section-title">答辩请求</div>
+    <#list objections as objection>
+    <div class="content">${objection_index+1}. ${objection}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        答辩人于${receive_date}收到贵院送达的被答辩人诉答辩人${case_cause}一案的起诉状副本。现答辩如下：
+    </div>
+    <div class="content">
+        ${fact_and_reason}
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${responding_court}<br><br>
+        答辩人：${respondent_info.name}<br>
+        ${responding_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 1 ===
+JSON
+{
+  "template_id": "MS-AY-004",
+  "template_name": "民事答辩状（金融借款合同纠纷）",
+  "fields": [
+    {
+      "name": "respondent_info",
+      "label": "答辩人信息",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "plaintiff_info",
+      "label": "被答辩人信息（金融机构）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "receive_date",
+      "label": "收到起诉状日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "objections",
+      "label": "答辩请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "答辩请求"
+      }
+    },
+    {
+      "name": "fact_and_reason",
+      "label": "事实与理由",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "请详细陈述事实与理由"
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "responding_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "responding_date",
+      "label": "答辩日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 2 ===
+Plaintext
+<#-- 民事起诉状（物业服务合同纠纷） MS-AY-005 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事起诉状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事起诉状</div>
+    
+    <div class="party-info">
+        原告：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}，联系电话：${plaintiff_info.phone}。
+    </div>
+    <div class="party-info">
+        被告：${defendant_info.name}，${defendant_info.gender}，${defendant_info.birth_date}出生，${defendant_info.nation}族，住${defendant_info.address}，联系电话：${defendant_info.phone}。
+    </div>
+
+    <div class="section-title">诉讼请求</div>
+    <#list lawsuit_requests as request>
+    <div class="content">${request_index+1}. ${request}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        ${contract_sign_date}，原告与${property_owner_name}签订编号为${property_contract_no}的《物业服务合同》，约定由原告为${community_name}小区提供物业服务，物业服务期限为${service_period}，物业费标准为${fee_standard}元/平方米/月。
+    </div>
+    <div class="content">
+        被告系该小区${building_no}号楼${unit_no}单元${room_no}室业主，房屋建筑面积为${house_area}平方米。自${arrears_start_date}起，被告未按合同约定交纳物业费，截至${current_date}，被告共拖欠物业费${arrears_amount}元，违约金${penalty_amount}元。
+    </div>
+    <div class="content">
+        原告多次向被告催缴上述费用，但被告至今仍未支付。被告的上述行为已构成严重违约，给原告造成了经济损失。为维护原告的合法权益，根据《中华人民共和国民法典》第九百四十四条等相关法律规定，特向贵院提起诉讼，请求依法判决，支持原告的全部诉讼请求。
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${filing_court}<br><br>
+        起诉人：${plaintiff_info.name}<br>
+        （公章）<br>
+        ${filing_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 3 ===
+JSON
+{
+  "template_id": "MS-AY-005",
+  "template_name": "民事起诉状（物业服务合同纠纷）",
+  "fields": [
+    {
+      "name": "plaintiff_info",
+      "label": "原告信息（物业公司）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "defendant_info",
+      "label": "被告信息（业主）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "property_contract_no",
+      "label": "物业服务合同编号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入物业服务合同编号"
+    },
+    {
+      "name": "contract_sign_date",
+      "label": "物业服务合同签订日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "property_owner_name",
+      "label": "合同甲方名称",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入业主委员会或建设单位名称"
+    },
+    {
+      "name": "community_name",
+      "label": "小区名称",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入小区名称"
+    },
+    {
+      "name": "service_period",
+      "label": "物业服务期限",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入物业服务期限，如：2020年1月1日至2025年12月31日"
+    },
+    {
+      "name": "fee_standard",
+      "label": "物业费标准（元/平方米/月）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入物业费标准"
+    },
+    {
+      "name": "building_no",
+      "label": "楼号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入楼号"
+    },
+    {
+      "name": "unit_no",
+      "label": "单元号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入单元号"
+    },
+    {
+      "name": "room_no",
+      "label": "室号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入室号"
+    },
+    {
+      "name": "house_area",
+      "label": "房屋建筑面积（平方米）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入房屋建筑面积"
+    },
+    {
+      "name": "arrears_start_date",
+      "label": "欠费起始日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "current_date",
+      "label": "截至日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "arrears_amount",
+      "label": "拖欠物业费金额（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入拖欠物业费金额"
+    },
+    {
+      "name": "penalty_amount",
+      "label": "违约金金额（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入违约金金额"
+    },
+    {
+      "name": "lawsuit_requests",
+      "label": "诉讼请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "诉讼请求"
+      }
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "filing_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "filing_date",
+      "label": "起诉日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 4 ===
+Plaintext
+<#-- 民事答辩状（物业服务合同纠纷） MS-AY-006 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事答辩状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事答辩状</div>
+    
+    <div class="party-info">
+        答辩人：${respondent_info.name}，${respondent_info.gender}，${respondent_info.birth_date}出生，${respondent_info.nation}族，住${respondent_info.address}，联系电话：${respondent_info.phone}。
+    </div>
+    <div class="party-info">
+        被答辩人：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}。
+    </div>
+
+    <div class="section-title">答辩请求</div>
+    <#list objections as objection>
+    <div class="content">${objection_index+1}. ${objection}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        答辩人于${receive_date}收到贵院送达的被答辩人诉答辩人${case_cause}一案的起诉状副本。现答辩如下：
+    </div>
+    <div class="content">
+        ${fact_and_reason}
+    </div>
+    <div class="content">
+        被答辩人提供的物业服务存在以下严重问题：
+    </div>
+    <#list service_defects as defect>
+    <div class="content">${defect_index+1}. ${defect}</div>
+    </#list>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${responding_court}<br><br>
+        答辩人：${respondent_info.name}<br>
+        ${responding_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 5 ===
+JSON
+{
+  "template_id": "MS-AY-006",
+  "template_name": "民事答辩状（物业服务合同纠纷）",
+  "fields": [
+    {
+      "name": "respondent_info",
+      "label": "答辩人信息（业主）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "plaintiff_info",
+      "label": "被答辩人信息（物业公司）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "receive_date",
+      "label": "收到起诉状日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "objections",
+      "label": "答辩请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "答辩请求"
+      }
+    },
+    {
+      "name": "fact_and_reason",
+      "label": "事实与理由",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "请详细陈述事实与理由"
+    },
+    {
+      "name": "service_defects",
+      "label": "物业服务存在的问题",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "问题描述"
+      }
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "responding_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "responding_date",
+      "label": "答辩日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 6 ===
+Plaintext
+<#-- 民事起诉状（银行信用卡纠纷） MS-AY-007 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事起诉状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事起诉状</div>
+    
+    <div class="party-info">
+        原告：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}，联系电话：${plaintiff_info.phone}。
+    </div>
+    <div class="party-info">
+        被告：${defendant_info.name}，${defendant_info.gender}，${defendant_info.birth_date}出生，${defendant_info.nation}族，住${defendant_info.address}，联系电话：${defendant_info.phone}。
+    </div>
+
+    <div class="section-title">诉讼请求</div>
+    <#list lawsuit_requests as request>
+    <div class="content">${request_index+1}. ${request}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        ${opening_date}，被告向原告申请办理信用卡，原告经审核后向被告发放了卡号为${card_no}的信用卡，信用额度为${credit_limit}元。
+    </div>
+    <div class="content">
+        被告使用该信用卡进行消费后，自${overdue_date}起未按约定偿还透支款项。截至${current_date}，被告尚欠原告透支本金${overdraft_principal}元，利息${interest_amount}元，违约金${penalty_amount}元，手续费${fee_amount}元，合计${total_amount}元。
+    </div>
+    <div class="content">
+        原告多次向被告催收上述款项，但被告至今仍未偿还。被告的上述行为已构成严重违约，给原告造成了经济损失。为维护原告的合法权益，根据《中华人民共和国民法典》第六百七十六条等相关法律规定，特向贵院提起诉讼，请求依法判决，支持原告的全部诉讼请求。
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${filing_court}<br><br>
+        起诉人：${plaintiff_info.name}<br>
+        （公章）<br>
+        ${filing_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 7 ===
+JSON
+{
+  "template_id": "MS-AY-007",
+  "template_name": "民事起诉状（银行信用卡纠纷）",
+  "fields": [
+    {
+      "name": "plaintiff_info",
+      "label": "原告信息（银行）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "defendant_info",
+      "label": "被告信息（持卡人）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "card_no",
+      "label": "信用卡卡号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入信用卡卡号"
+    },
+    {
+      "name": "opening_date",
+      "label": "信用卡开户日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "credit_limit",
+      "label": "信用额度（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入信用额度"
+    },
+    {
+      "name": "overdue_date",
+      "label": "逾期日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "current_date",
+      "label": "截至日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "overdraft_principal",
+      "label": "透支本金（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入透支本金"
+    },
+    {
+      "name": "interest_amount",
+      "label": "利息（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入利息"
+    },
+    {
+      "name": "penalty_amount",
+      "label": "违约金（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入违约金"
+    },
+    {
+      "name": "fee_amount",
+      "label": "手续费（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入手续费"
+    },
+    {
+      "name": "total_amount",
+      "label": "合计金额（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入合计金额"
+    },
+    {
+      "name": "lawsuit_requests",
+      "label": "诉讼请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "诉讼请求"
+      }
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "filing_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "filing_date",
+      "label": "起诉日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 8 ===
+Plaintext
+<#-- 民事答辩状（银行信用卡纠纷） MS-AY-008 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事答辩状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事答辩状</div>
+    
+    <div class="party-info">
+        答辩人：${respondent_info.name}，${respondent_info.gender}，${respondent_info.birth_date}出生，${respondent_info.nation}族，住${respondent_info.address}，联系电话：${respondent_info.phone}。
+    </div>
+    <div class="party-info">
+        被答辩人：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}。
+    </div>
+
+    <div class="section-title">答辩请求</div>
+    <#list objections as objection>
+    <div class="content">${objection_index+1}. ${objection}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        答辩人于${receive_date}收到贵院送达的被答辩人诉答辩人${case_cause}一案的起诉状副本。现答辩如下：
+    </div>
+    <div class="content">
+        ${fact_and_reason}
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${responding_court}<br><br>
+        答辩人：${respondent_info.name}<br>
+        ${responding_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 9 ===
+JSON
+{
+  "template_id": "MS-AY-008",
+  "template_name": "民事答辩状（银行信用卡纠纷）",
+  "fields": [
+    {
+      "name": "respondent_info",
+      "label": "答辩人信息（持卡人）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "plaintiff_info",
+      "label": "被答辩人信息（银行）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "receive_date",
+      "label": "收到起诉状日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "objections",
+      "label": "答辩请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "答辩请求"
+      }
+    },
+    {
+      "name": "fact_and_reason",
+      "label": "事实与理由",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "请详细陈述事实与理由"
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "responding_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "responding_date",
+      "label": "答辩日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 10 ===
+JSON
+{
+  "template_id": "模板编号",
+  "template_name": "模板名称",
+  "category": "模板分类",
+  "sub_category": "子分类",
+  "source": "模板来源",
+  "form_structure": {
+    // 前端表单JSON配置
+  },
+  "template_content": "FreeMarker模板内容"
+}
+
+=== TABLE 11 ===
+Java
+@RestController
+@RequestMapping("/api/templates")
+public class TemplateController {
+
+    @Autowired
+    private Configuration freemarkerConfig;
+    
+    @Autowired
+    private TemplateService templateService;
+
+    @PostMapping("/{id}/generate")
+    public ResponseEntity<byte[]> generateDocument(
+            @PathVariable String id,
+            @RequestBody Map<String, Object> formData) throws Exception {
+        
+        // 获取模板内容
+        Template template = templateService.getTemplateById(id);
+        String templateContent = template.getTemplateContent();
+        
+        // 渲染模板
+        StringWriter writer = new StringWriter();
+        freemarkerConfig.getTemplate(templateContent).process(formData, writer);
+        String htmlContent = writer.toString();
+        
+        // 转换为PDF或Word
+        byte[] documentBytes = DocumentConverter.convertToPdf(htmlContent);
+        
+        // 返回文件
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", template.getTemplateName() + ".pdf");
+        
+        return new ResponseEntity<>(documentBytes, headers, HttpStatus.OK);
+    }
+}
+

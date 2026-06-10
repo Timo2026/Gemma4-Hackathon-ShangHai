@@ -1,0 +1,708 @@
+{
+  "sessionId": "dc7a1eb3-71f6-4fe2-a33f-f0ea1181bec0",
+  "dilemma": "AI 正在快速改变我的领域。我应该继续强化当前岗位，转向 AI-native 工作方式，还是在市场定义我之前主动重塑自己的角色？",
+  "language": "zh-CN",
+  "domain": "career",
+  "theme": "hell",
+  "presetScenarioId": "ai_future_of_work",
+  "turn": 3,
+  "maxTurns": 3,
+  "status": "complete",
+  "canonicalPath": [
+    {
+      "id": "b2",
+      "title": "聚焦深化现有领域深度，用AI工具提高效率，避免重塑角色定义的风险。",
+      "summary": "继续在当前擅长的领域内工作，但将 AI 工具视为增强生产力的辅助手段（例如：使用 Copilot 优化代码、AI 进行文档摘要）。目标是成为“最可靠的专家”，降低不确定性带来的焦虑感。",
+      "consequence": "短期交付压力小，心理安全感高。但一旦行业真正的转型浪潮来临，深度专业知识可能被更通用、更高效的 AI 模型替代，职业路径天花板会变低。",
+      "score": 0.29,
+      "timeHorizon": "6-12 个月",
+      "riskProfile": "low",
+      "keyUncertainty": "行业真正的转型速度和广度是否超出当前局部的优化工具升级范畴。",
+      "turn": 1
+    },
+    {
+      "id": "b2",
+      "title": "小范围试点重塑：主动定义跨职能AI工作流",
+      "summary": "不改变主要交付物，但在一个非核心但可见的侧翼项目（例如内部知识库升级、流程自动化审计）中，主导引入并优化一套全新的 AI-native 工作流。目标是让变革过程成为自己的“试验田”，积累主动定义的经验。",
+      "consequence": "成功的话可以获得‘创新者’和‘架构师’的身份标签，显著提升长期职业杠杆。失败则可能因投入精力分散或试点项目失焦，导致在主线任务上的交付压力增加，并面临“不务正业”的质疑。",
+      "score": 0.33,
+      "timeHorizon": "6-12 个月",
+      "riskProfile": "medium",
+      "keyUncertainty": "能否找到足够重要的、且不会被现有工作流干扰的小试点项目？如何说服关键利益相关者投入时间支持这个非必须的项目？",
+      "turn": 2
+    },
+    {
+      "id": "ua-3-1",
+      "title": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经...",
+      "summary": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高",
+      "consequence": "需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相 preserves optionality with mixed signals beyond 深入现有领域，并引入AI辅助工具提升效率 (巩固)",
+      "score": 0.5,
+      "timeHorizon": "短期-中期",
+      "riskProfile": "medium",
+      "keyUncertainty": "Whether the custom compromise will be read as strategy rather than hesitation: 需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高 | pressure: Some stakeholders want speed and automation, while others fear quality erosion and replacement.",
+      "turn": 3
+    }
+  ],
+  "quantumTrace": [
+    "架构师/探索者：推动流程边界拓展，为未来业务模式提供蓝图。",
+    "Chose 需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相关背景和经... and moved toward 需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相 preserves optionality with mixed signals beyond 深入现有领域，并引入ai辅助工具提升效率 (巩固).",
+    "Accepted a medium-risk path with a 短期-中期 horizon.",
+    "The field reorganizes around a user-authored hybrid move: 需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高. Previous pressure: Some stakeholders want speed and automation, while others fear quality erosion and replacement.",
+    "People around you see 需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相关背景和经验要求 as the user rewriting the offered script."
+  ],
+  "shadowTimelines": [
+    [
+      {
+        "id": "b1",
+        "title": "主动进行跨领域AI项目，建立“知识桥梁”角色",
+        "summary": "选择一个核心但非关键的业务流程节点，利用 AI 工具和自身专业知识结合，主导一个小型的、可展示的 PoC（概念验证）项目。目标是成为连接传统流程和未来技术的‘翻译官’。",
+        "consequence": "短期内工作量增加，需要投入精力学习新工具。但能迅速建立起‘AI赋能实践者’的正面形象，提高在跨部门讨论中的议价能力。",
+        "score": 0.37,
+        "timeHorizon": "6-12 个月",
+        "riskProfile": "medium",
+        "keyUncertainty": "该 PoC 项目是否能得到足够资源和高层关注，从而形成可见的职业杠杆。",
+        "turn": 1
+      },
+      {
+        "id": "b3",
+        "title": "暂停现有业务，投入时间进行跨行业的AI能力重塑与知识积累。",
+        "summary": "主动向团队提出短期减负或资源调整的请求，将大部分精力用于系统性学习（如：Prompt Engineering、LLM架构），并开始构建非工作相关的 AI 外部项目 Portfolio。采取‘战略暂停’姿态。",
+        "consequence": "能极大提升个人知识广度和前瞻性，但会立即触发团队对“投入产出比”的质疑，短期内可能降低直属经理的信任和可见度。",
+        "score": 0.34,
+        "timeHorizon": "6-12 个月",
+        "riskProfile": "high",
+        "keyUncertainty": "管理层是否能接受‘主动学习停工’的行为，以及外部学习的边际效用能否快速转化为内部可识别的价值。",
+        "turn": 1
+      }
+    ],
+    [
+      {
+        "id": "b1",
+        "title": "AI赋能的局部优化：用工具解决眼前最痛的点",
+        "summary": "选择在现有任务流中，有针对性地引入 AI 工具来提高可见的效率指标（例如自动生成初稿、总结会议纪要），从而在不改变核心角色定义的前提下，安全地展现价值。这是一种低风险、高执行度的优化策略。",
+        "consequence": "短期内获得积极的绩效反馈和心理安全感，维持了当前的专业可信度。但这种依赖于工具优化的模式，并未提升个人在行业变革浪潮中的核心认知壁垒或角色主动性，长期来看可能固化‘高级执行者’的角色定义。",
+        "score": 0.42,
+        "timeHorizon": "3-6 个月",
+        "riskProfile": "low",
+        "keyUncertainty": "是否会陷入持续的、工具辅助的‘效率陷阱’，无法进行更高维度的思考和角色跃迁。",
+        "turn": 2
+      },
+      {
+        "id": "b3",
+        "title": "外部角色重定义：主动寻求跨领域AI咨询/副业机会",
+        "summary": "暂时降低对现有岗位绩效的关注，将精力转移到利用 AI 能力在行业边缘或学术圈寻找非直接相关的、能验证自身新角色的项目。从‘执行者’向‘领域顾问’角色转变。",
+        "consequence": "最高度地拓展了个人身份和抗风险能力，构建了多源化的职业资产池。但与当前稳定收入来源的脱钩会带来显著的财务压力和心理不确定感，可能引发家庭或核心支持系统的担忧。",
+        "score": 0.25,
+        "timeHorizon": "12+ 个月",
+        "riskProfile": "high",
+        "keyUncertainty": "是否能将外部探索获得的经验，在未来时间点上成功“锚定”回一个可实现的、高价值的内部或外部职位？能否承受长期的低收入期和不确定性带来的情绪波动？",
+        "turn": 2
+      }
+    ],
+    [
+      {
+        "id": "b1",
+        "title": "深入现有领域，并引入AI辅助工具提升效率 (巩固)",
+        "summary": "将焦点锁定在当前业务的核心痛点上，系统性地应用 AI 工具解决具体的交付瓶颈。目标是利用可量化的产出提升日常工作的效率和深度。",
+        "consequence": "能迅速获得短期的绩效认可和团队信任，缓解燃眉之急的压力。但长期来看，这种模式强化了对现有流程的依赖，可能成为 AI 替代的最大靶子，限制了角色的天花板。",
+        "score": 0.43,
+        "timeHorizon": "短期-中期",
+        "riskProfile": "low",
+        "keyUncertainty": "是否能找到足够独特、难以被通用AI模型取代的业务深度壁垒。",
+        "turn": 3
+      },
+      {
+        "id": "b2",
+        "title": "重塑角色定位，主导跨职能AI流程试点 (扩张)",
+        "summary": "主动发起一个超越现有团队边界、涉及多个专业领域的 AI 工作流创新试点项目。核心目标是建立‘架构师’和‘赋能者’的身份标签，将自己从执行者提升为定义价值流的人。",
+        "consequence": "成功则极大地提升长期职业杠杆，并获得高层对战略思维的认可；失败则可能因资源分散或试点项目缺乏即时产出而被质疑投入产出比，增加“空想家”标签的风险。",
+        "score": 0.34,
+        "timeHorizon": "中期-长期",
+        "riskProfile": "medium",
+        "keyUncertainty": "跨职能协作中的政治阻力和资源分配机制是否支持探索性项目。",
+        "turn": 3
+      },
+      {
+        "id": "b3",
+        "title": "观望并积累AI知识，等待外部明确信号 (缓冲)",
+        "summary": "暂时降低主动投入的压力，将精力放在系统性学习前沿 AI 知识、行业趋势以及可供利用的数据集上。不急于展示成果，而是沉淀“思考深度”，以应对未来不可预知的市场变化。",
+        "consequence": "维持了低调的专业形象和心理安全感，避免了短期失败带来的负面影响。但由于缺乏可见的产出（无论是交付还是项目），容易被视为行动迟缓或不够积极，导致在竞争激烈的环境中失去主动权。",
+        "score": 0.23,
+        "timeHorizon": "长期",
+        "riskProfile": "low",
+        "keyUncertainty": "等待外部信号的时间成本和机会成本是否过高。",
+        "turn": 3
+      }
+    ]
+  ],
+  "userContextPack": {
+    "userGoal": "在保持专业可信度的同时，提高长期职业杠杆。",
+    "currentPosition": "一个能力稳定、但所在领域正在被 AI 重塑的从业者。",
+    "availableOptions": [
+      "Double down on current strengths and adopt AI gradually.",
+      "Reposition toward AI-native work and visible experimentation.",
+      "Redesign the role internally before external pressure forces a change."
+    ],
+    "riskPreference": "medium",
+    "timeHorizon": "6-12 个月",
+    "personalConstraints": [
+      "当前职责留给实验的时间有限。",
+      "不能承受长时间公开表现出方向混乱。"
+    ],
+    "keyStakeholders": [
+      "直属经理",
+      "同组工程师",
+      "AI-forward 推动者",
+      "个人支持系统"
+    ],
+    "successCriteria": [
+      "Remain trusted while becoming more future-relevant.",
+      "Create optionality without looking unstable."
+    ]
+  },
+  "userAuthoredActions": [
+    {
+      "turn": 3,
+      "rawInput": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高",
+      "title": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经...",
+      "summary": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高",
+      "consequence": "需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相 preserves optionality with mixed signals beyond 深入现有领域，并引入AI辅助工具提升效率 (巩固)",
+      "riskProfile": "medium",
+      "timeHorizon": "短期-中期",
+      "anchorBranchId": "b1"
+    }
+  ],
+  "influenceEvents": [
+    {
+      "id": "ie-1-b2-individual-to-society",
+      "turn": 1,
+      "branchId": "b2",
+      "sourceType": "individual",
+      "sourceId": "observer",
+      "targetType": "society",
+      "targetId": "manager",
+      "dimension": "behavior",
+      "direction": "increase",
+      "intensity": 0.5,
+      "explanation": "通过提高效率，持续稳定地交付高质量成果，行为上证实了专业领域的可靠性和可预测性。"
+    },
+    {
+      "id": "ie-2-b2-society-to-individual",
+      "turn": 1,
+      "branchId": "b2",
+      "sourceType": "society",
+      "sourceId": "environment",
+      "targetType": "individual",
+      "targetId": "observer",
+      "dimension": "pressure",
+      "direction": "increase",
+      "intensity": 0.5,
+      "explanation": "虽然短期压力解除，但由于未主动引入前沿技术议题，自身在行业变革浪潮中的‘认知超前感’和外部关注度未能提升。"
+    },
+    {
+      "id": "ie-1-b2-individual-to-society",
+      "turn": 2,
+      "branchId": "b2",
+      "sourceType": "individual",
+      "sourceId": "observer",
+      "targetType": "society",
+      "targetId": "manager",
+      "dimension": "opportunity",
+      "direction": "increase",
+      "intensity": 0.7,
+      "explanation": "主动发起跨职能的试点项目，将自身定位为流程革新的核心推动者，成功地改变了管理层对观察者的角色预期。"
+    },
+    {
+      "id": "ie-2-b2-society-to-individual",
+      "turn": 2,
+      "branchId": "b2",
+      "sourceType": "society",
+      "sourceId": "environment",
+      "targetType": "individual",
+      "targetId": "observer",
+      "dimension": "behavior",
+      "direction": "redirect",
+      "intensity": 0.6,
+      "explanation": "试点项目的成功，迫使观察者从单纯的执行角色向‘流程设计者’的角色转变，提升了其行动维度和主动性。"
+    },
+    {
+      "id": "ie-3-ua-3-1-individual-to-society",
+      "turn": 3,
+      "branchId": "ua-3-1",
+      "sourceType": "individual",
+      "sourceId": "observer",
+      "targetType": "society",
+      "targetId": "manager",
+      "dimension": "opportunity",
+      "direction": "redirect",
+      "intensity": 0.62,
+      "explanation": "Choosing \"需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经...\" changes how surrounding stakeholders interpret the observer: People around you see 需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相关背景和经验要求 as the user rewriting the offered script."
+    },
+    {
+      "id": "ie-3-ua-3-1-society-to-individual",
+      "turn": 3,
+      "branchId": "ua-3-1",
+      "sourceType": "society",
+      "sourceId": "manager",
+      "targetType": "individual",
+      "targetId": "observer",
+      "dimension": "behavior",
+      "direction": "redirect",
+      "intensity": 0.5,
+      "explanation": "The world feeds back into the observer through this pressure shift: The field reorganizes around a user-authored hybrid move: 需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经验要求较高. Previous pressure: Some stakeholders want speed and automation, while others fear quality erosion and replacement."
+    }
+  ],
+  "initialSimulationState": {
+    "scope": "coupled",
+    "individual": {
+      "skills": {
+        "adaptation": 0.5,
+        "aiFluency": 0.42,
+        "domain": 0.55
+      },
+      "confidence": 0.5,
+      "reputation": 0.5,
+      "trust": 0.5,
+      "financialStability": 0.6,
+      "stress": 0.35,
+      "riskTolerance": 0.55,
+      "identity": [
+        "adaptability",
+        "ai-adapter",
+        "decision-observer"
+      ]
+    },
+    "stakeholders": [
+      {
+        "id": "manager",
+        "role": "Manager",
+        "stance": "uncertain",
+        "trust": 0.45,
+        "resistance": 0.55,
+        "influence": 0.86,
+        "currentGoal": "Wants higher output without destabilizing the team."
+      },
+      {
+        "id": "peer-engineer",
+        "role": "Peer Engineer",
+        "stance": "uncertain",
+        "trust": 0.45,
+        "resistance": 0.55,
+        "influence": 0.64,
+        "currentGoal": "Wants fairness, relevance, and not to be left behind."
+      },
+      {
+        "id": "ai-forward-operator",
+        "role": "AI-forward Operator",
+        "stance": "supportive",
+        "trust": 0.72,
+        "resistance": 0.25,
+        "influence": 0.72,
+        "currentGoal": "Wants visible adoption and proof that new workflows matter."
+      },
+      {
+        "id": "personal-support-system",
+        "role": "Personal Support System",
+        "stance": "supportive",
+        "trust": 0.72,
+        "resistance": 0.25,
+        "influence": 0.58,
+        "currentGoal": "Wants sustainable growth, not panic-driven reinvention."
+      },
+      {
+        "id": "",
+        "role": "直属经理",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "",
+        "role": "同组工程师",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "ai-forward",
+        "role": "AI-forward 推动者",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "",
+        "role": "个人支持系统",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      }
+    ],
+    "environmentMetrics": {
+      "behavior": 0.4,
+      "momentum": 0.4,
+      "opportunity": 0.5,
+      "pressure": 0.45,
+      "risk": 0.45,
+      "trust": 0.5
+    },
+    "updatedAtTurn": 0
+  },
+  "simulationState": {
+    "scope": "coupled",
+    "individual": {
+      "skills": {
+        "adaptation": 0.698,
+        "aiFluency": 0.42,
+        "domain": 0.55
+      },
+      "confidence": 0.476,
+      "reputation": 0.5,
+      "trust": 0.5,
+      "financialStability": 0.6,
+      "stress": 0.44,
+      "riskTolerance": 0.55,
+      "identity": [
+        "adaptability",
+        "ai-adapter",
+        "decision-observer"
+      ]
+    },
+    "stakeholders": [
+      {
+        "id": "manager",
+        "role": "Manager",
+        "stance": "neutral",
+        "trust": 0.46,
+        "resistance": 0.505,
+        "influence": 0.891,
+        "currentGoal": "Choosing \"需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经...\" changes how surrounding stakeholders interpret the observer: People around you see 需要内部和外部同时进行, 公司内部推行ai流程有阻力, 外部有机会,但对个人的相关背景和经验要求 as the user rewriting the offered script."
+      },
+      {
+        "id": "peer-engineer",
+        "role": "Peer Engineer",
+        "stance": "uncertain",
+        "trust": 0.45,
+        "resistance": 0.55,
+        "influence": 0.64,
+        "currentGoal": "Wants fairness, relevance, and not to be left behind."
+      },
+      {
+        "id": "ai-forward-operator",
+        "role": "AI-forward Operator",
+        "stance": "supportive",
+        "trust": 0.72,
+        "resistance": 0.25,
+        "influence": 0.72,
+        "currentGoal": "Wants visible adoption and proof that new workflows matter."
+      },
+      {
+        "id": "personal-support-system",
+        "role": "Personal Support System",
+        "stance": "supportive",
+        "trust": 0.72,
+        "resistance": 0.25,
+        "influence": 0.58,
+        "currentGoal": "Wants sustainable growth, not panic-driven reinvention."
+      },
+      {
+        "id": "",
+        "role": "直属经理",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "",
+        "role": "同组工程师",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "ai-forward",
+        "role": "AI-forward 推动者",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      },
+      {
+        "id": "",
+        "role": "个人支持系统",
+        "stance": "uncertain",
+        "trust": 0.5,
+        "resistance": 0.45,
+        "influence": 0.5,
+        "currentGoal": "Respond to the observer's choices."
+      }
+    ],
+    "environmentMetrics": {
+      "behavior": 0.4,
+      "momentum": 0.4,
+      "opportunity": 0.5,
+      "pressure": 0.45,
+      "risk": 0.45,
+      "trust": 0.5
+    },
+    "updatedAtTurn": 3
+  },
+  "groundingLog": [
+    {
+      "turn": 1,
+      "selectedBranchId": "b2",
+      "selectedBranchTitle": "聚焦深化现有领域深度，用AI工具提高效率，避免重塑角色定义的风险。",
+      "groundingContext": {
+        "sourceType": "preset",
+        "presetScenarioId": "ai_future_of_work",
+        "scenarioTitle": "AI Future Of Work",
+        "worldFactsUsed": [
+          "Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "Managers reward visible adaptation, but are skeptical of shallow AI theater.",
+          "Peers disagree about whether AI raises leverage or accelerates replacement risk."
+        ],
+        "socialTensionsUsed": [
+          "Some stakeholders want speed and automation, while others fear quality erosion and replacement.",
+          "Peers may resent or admire someone who becomes the local AI-forward person too quickly."
+        ],
+        "roleCastUsed": [
+          {
+            "role": "Manager",
+            "relationship": "Direct evaluator of near-term credibility and role evolution.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "Peer Engineer",
+            "relationship": "Shapes informal status and comparison pressure.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "AI-forward Operator",
+            "relationship": "Can sponsor experimentation if momentum looks real.",
+            "baselineStance": "supportive"
+          },
+          {
+            "role": "Personal Support System",
+            "relationship": "Absorbs the emotional cost of your career repositioning.",
+            "baselineStance": "supportive"
+          }
+        ],
+        "userContextSummary": {
+          "userGoal": "在保持专业可信度的同时，提高长期职业杠杆。",
+          "currentPosition": "一个能力稳定、但所在领域正在被 AI 重塑的从业者。",
+          "riskPreference": "medium",
+          "timeHorizon": "6-12 个月",
+          "personalConstraints": [
+            "当前职责留给实验的时间有限。",
+            "不能承受长时间公开表现出方向混乱。"
+          ],
+          "keyStakeholders": [
+            "直属经理",
+            "同组工程师",
+            "AI-forward 推动者",
+            "个人支持系统"
+          ],
+          "successCriteria": [
+            "Remain trusted while becoming more future-relevant.",
+            "Create optionality without looking unstable."
+          ]
+        },
+        "worldContextSummary": {
+          "setting": "A grounded career scenario where AI is rapidly changing expectations, team structure, and what counts as leverage. Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "externalConditions": "Adapt early, but do not become reducible to tool enthusiasm.",
+          "currentWorldPressure": "Some stakeholders want speed and automation, while others fear quality erosion and replacement."
+        }
+      }
+    },
+    {
+      "turn": 2,
+      "selectedBranchId": "b2",
+      "selectedBranchTitle": "小范围试点重塑：主动定义跨职能AI工作流",
+      "groundingContext": {
+        "sourceType": "preset",
+        "presetScenarioId": "ai_future_of_work",
+        "scenarioTitle": "AI Future Of Work",
+        "worldFactsUsed": [
+          "Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "Managers reward visible adaptation, but are skeptical of shallow AI theater.",
+          "Peers disagree about whether AI raises leverage or accelerates replacement risk."
+        ],
+        "socialTensionsUsed": [
+          "Some stakeholders want speed and automation, while others fear quality erosion and replacement.",
+          "Peers may resent or admire someone who becomes the local AI-forward person too quickly."
+        ],
+        "roleCastUsed": [
+          {
+            "role": "Manager",
+            "relationship": "Direct evaluator of near-term credibility and role evolution.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "Peer Engineer",
+            "relationship": "Shapes informal status and comparison pressure.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "AI-forward Operator",
+            "relationship": "Can sponsor experimentation if momentum looks real.",
+            "baselineStance": "supportive"
+          },
+          {
+            "role": "Personal Support System",
+            "relationship": "Absorbs the emotional cost of your career repositioning.",
+            "baselineStance": "supportive"
+          }
+        ],
+        "userContextSummary": {
+          "userGoal": "在保持专业可信度的同时，提高长期职业杠杆。",
+          "currentPosition": "一个能力稳定、但所在领域正在被 AI 重塑的从业者。",
+          "riskPreference": "medium",
+          "timeHorizon": "6-12 个月",
+          "personalConstraints": [
+            "当前职责留给实验的时间有限。",
+            "不能承受长时间公开表现出方向混乱。"
+          ],
+          "keyStakeholders": [
+            "直属经理",
+            "同组工程师",
+            "AI-forward 推动者",
+            "个人支持系统"
+          ],
+          "successCriteria": [
+            "Remain trusted while becoming more future-relevant.",
+            "Create optionality without looking unstable."
+          ]
+        },
+        "worldContextSummary": {
+          "setting": "A grounded career scenario where AI is rapidly changing expectations, team structure, and what counts as leverage. Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "externalConditions": "Adapt early, but do not become reducible to tool enthusiasm.",
+          "currentWorldPressure": "Some stakeholders want speed and automation, while others fear quality erosion and replacement."
+        }
+      }
+    },
+    {
+      "turn": 3,
+      "selectedBranchId": "ua-3-1",
+      "selectedBranchTitle": "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经...",
+      "groundingContext": {
+        "sourceType": "preset",
+        "presetScenarioId": "ai_future_of_work",
+        "scenarioTitle": "AI Future Of Work",
+        "worldFactsUsed": [
+          "Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "Managers reward visible adaptation, but are skeptical of shallow AI theater.",
+          "Peers disagree about whether AI raises leverage or accelerates replacement risk."
+        ],
+        "socialTensionsUsed": [
+          "Some stakeholders want speed and automation, while others fear quality erosion and replacement.",
+          "Peers may resent or admire someone who becomes the local AI-forward person too quickly."
+        ],
+        "roleCastUsed": [
+          {
+            "role": "Manager",
+            "relationship": "Direct evaluator of near-term credibility and role evolution.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "Peer Engineer",
+            "relationship": "Shapes informal status and comparison pressure.",
+            "baselineStance": "uncertain"
+          },
+          {
+            "role": "AI-forward Operator",
+            "relationship": "Can sponsor experimentation if momentum looks real.",
+            "baselineStance": "supportive"
+          },
+          {
+            "role": "Personal Support System",
+            "relationship": "Absorbs the emotional cost of your career repositioning.",
+            "baselineStance": "supportive"
+          }
+        ],
+        "userContextSummary": {
+          "userGoal": "在保持专业可信度的同时，提高长期职业杠杆。",
+          "currentPosition": "一个能力稳定、但所在领域正在被 AI 重塑的从业者。",
+          "riskPreference": "medium",
+          "timeHorizon": "6-12 个月",
+          "personalConstraints": [
+            "当前职责留给实验的时间有限。",
+            "不能承受长时间公开表现出方向混乱。"
+          ],
+          "keyStakeholders": [
+            "直属经理",
+            "同组工程师",
+            "AI-forward 推动者",
+            "个人支持系统"
+          ],
+          "successCriteria": [
+            "Remain trusted while becoming more future-relevant.",
+            "Create optionality without looking unstable."
+          ]
+        },
+        "worldContextSummary": {
+          "setting": "A grounded career scenario where AI is rapidly changing expectations, team structure, and what counts as leverage. Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+          "externalConditions": "Adapt early, but do not become reducible to tool enthusiasm.",
+          "currentWorldPressure": "Some stakeholders want speed and automation, while others fear quality erosion and replacement."
+        }
+      }
+    }
+  ],
+  "userPersona": {
+    "riskTolerance": "medium",
+    "emotionalState": "alert",
+    "primaryValue": "optionality",
+    "recentWins": [
+      "聚焦深化现有领域深度，用AI工具提高效率，避免重塑角色定义的风险。",
+      "小范围试点重塑：主动定义跨职能AI工作流",
+      "需要内部和外部同时进行, 公司内部推行AI流程有阻力, 外部有机会,但对个人的相关背景和经..."
+    ],
+    "openWounds": []
+  },
+  "lastWorldContext": {
+    "domain": "career",
+    "setting": "A grounded career scenario where AI is rapidly changing expectations, team structure, and what counts as leverage. Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+    "externalConditions": "Adapt early, but do not become reducible to tool enthusiasm.",
+    "constraints": [
+      "Career moves take time to compound.",
+      "Your reputation can be damaged if you look either complacent or opportunistically hype-driven.",
+      "Learning time competes with current delivery expectations.",
+      "AI tools can increase output unevenly, which creates comparison pressure inside teams."
+    ],
+    "opportunities": [
+      "A single visible decision can change future positioning.",
+      "A visible AI-native repositioning can expand your future role definition.",
+      "Early experimentation can create internal leverage before job boundaries harden.",
+      "Strong judgment about where AI helps and where it fails can become a trust advantage."
+    ],
+    "stableRules": [
+      "Trust changes slower than excitement.",
+      "Career upside is usually paired with visible trade-offs.",
+      "Social support affects whether hard choices remain sustainable.",
+      "Self-authored moves increase agency, but also increase legibility pressure.",
+      "Teams are under pressure to do more with fewer people by adopting AI-assisted workflows.",
+      "Managers reward visible adaptation, but are skeptical of shallow AI theater."
+    ],
+    "currentWorldPressure": "Some stakeholders want speed and automation, while others fear quality erosion and replacement."
+  },
+  "summary": {
+    "narrative": "面对快速变革的AI浪潮，你的最终定位是“全能型的探索者”。这种角色需要你在内部和外部市场之间进行精妙的平衡。在公司内部，你必须扮演一个游说者和试验者的角色：既要用AI工具提升现有流程（巩固当前价值），又要主动推进跨部门、前瞻性的AI试点项目（拓宽边界）。由于内部变革阻力较大，你的成功关键在于将试点项目的成果包装成“可量化的业务收益”，而非单纯的技术探索。外部机会的利用则需要你构建一个多源化的职业资产池：不应完全脱离现有工作，而是以兼职或咨询的形式，在更具前瞻性的领域进行尝试，这能有效提升你的议价能力和抗风险性。\n\n这种“内部巩固，外部扩张”的混合策略虽然要求你同时管理多条战线，短期内会带来较高的认知负荷和精力消耗（这一点与早期考虑暂停业务的行为是相似的），但它最大化了你的可选性（Optionality）。你成功地避免了陷入单一角色（如纯粹的高级执行者）的陷阱。从长期看，你建立的“知识桥梁”身份——即能将前沿AI技术和核心业务痛点连接起来的人——是最稀缺、最值钱的资源。\n\n尽管目前你的信任度和置信度处于中等水平（confidence=0.48），但由于拥有多重支持系统（如AI-forward Operator 和 Personal Support System 的高支持度），以及明确的高阶目标，你已经建立了强大的内在驱动力。核心挑战是管理内部冲突和精力分配；你需要有意识地与直属经理沟通，将你的“探索”行为定义为“应对市场变化的主动防御”，从而降低其不确定性带来的质疑。\n\n总之，现在的最佳状态是一个高压、高回报的混合体：你既要稳扎稳打做实本职工作的短期优化，也要勇于成为那个跨越流程边界，引领未来业务形态的架构师。这种持续的张力本身就是你的核心竞争力。",
+    "decisionArc": [
+      "将AI视为提升效率的工具而非替代品，巩固现有专业壁垒；主动在非核心但可见的项目中试点引入AI工作流，积累“创新者”身份标签。",
+      "采取内部和外部同步推进的混合策略，最大化职业可选性（Optionality），成为连接技术与业务的‘知识桥梁’角色。"
+    ],
+    "alternateHint": "如果选择完全暂停现有业务投入时间进行跨行业重塑，虽然能极大提升前瞻性，但短期内会引发团队对“投入产出比”的质疑，导致管理层信任度骤降。"
+  }
+}

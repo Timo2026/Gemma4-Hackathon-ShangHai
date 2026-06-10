@@ -1,0 +1,38 @@
+{% extends "ui/base.html" %}
+
+{% block title %}Memory · MindForm Console{% endblock %}
+
+{% block content %}
+<section class="stack">
+    <div>
+        <p class="eyebrow">Logs</p>
+        <h1 class="page-h">Memory Viewer</h1>
+        <p class="lead">JSONL-based memory logs used by the MindForm engine.</p>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Perceptions</h2>
+        <pre>{{ perceptions|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Perception buffer</h2>
+        <pre>{{ perception_buffer|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Episodic</h2>
+        <pre>{{ episodic|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Consolidation log</h2>
+        <pre>{{ consolidation_log|pprint }}</pre>
+    </div>
+
+    <div class="panel">
+        <h2 class="panel-h">Reflection log</h2>
+        <pre>{{ reflection_log|pprint }}</pre>
+    </div>
+</section>
+{% endblock %}

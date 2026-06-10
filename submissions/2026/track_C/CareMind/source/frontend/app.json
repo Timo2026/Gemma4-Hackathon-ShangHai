@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "CareMind",
+    "slug": "caremind",
+    "version": "0.2.1",
+    "orientation": "portrait",
+    "scheme": "caremind",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "ios": {
+      "bundleIdentifier": "com.caremind.app",
+      "buildNumber": "2",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "CareMind 需要使用麦克风把照护者的语音记录转成可编辑文字。",
+        "NSSpeechRecognitionUsageDescription": "CareMind 可能使用系统语音能力把照护者的语音记录转成可编辑文字。"
+      }
+    },
+    "android": {
+      "package": "com.caremind.app",
+      "versionCode": 2,
+      "permissions": [
+        "RECORD_AUDIO",
+        "INTERNET"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#FAF5EC"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

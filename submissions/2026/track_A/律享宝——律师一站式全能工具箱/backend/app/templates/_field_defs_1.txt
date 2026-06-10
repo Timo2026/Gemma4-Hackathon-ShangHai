@@ -1,0 +1,132 @@
+P0: 律享宝平台V1.2法律文书模板完整字段定义与FreeMarker占位符示例
+P1: 附件版本：V1.0
+适用模板引擎：FreeMarker 2.3.31+
+字段命名规则：全部采用小写字母 + 下划线命名法，与数据库字段、前端表单字段完全一致
+特殊字符处理：所有用户输入内容自动转义，防止 XSS 攻击
+日期格式：统一使用 "yyyy 年 MM 月 dd 日" 格式
+勾选框处理：布尔类型字段，true 显示 "☑"，false 显示 "□"
+P3: 一、民事诉讼文书（最高法 2024 版）完整字段定义
+P4: 1.1 通用诉讼文书（6 份）
+P5: 1.2 案由专项文书（22 份）
+P7: 二、法律援助文书（司法部 2024 版）完整字段定义
+P8: 2.1 申请受理类（8 份）
+P9: 2.2 决定指派类（5 份）
+P10: 2.3 办案管理类（9 份）
+P11: 2.4 值班律师类（7 份）
+P12: 2.5 质量监督类（3 份）
+P14: 三、律师办案辅助文书完整字段定义（12 份）
+P16: 四、FreeMarker 模板引擎占位符示例
+P17: 4.1 法定代表人身份证明书（MS-TY-001）完整模板
+P18: 4.2 授权委托书（自然人用）（MS-TY-004）完整模板
+P19: 4.3 民事起诉状（买卖合同纠纷）（MS-AY-001）核心片段
+P20: 4.4 法律援助申请表（FZ-002）核心片段
+P21: 需要我把剩余 70 份模板的完整 FreeMarker 代码全部生成，或者补充MySQL 数据库表结构设计和前端表单 JSON 配置吗？
+P22: |（注：文档部分内容可能由 AI 生成）
+
+=== TABLE 0 (7r x 5c) ===
+  R0: ['模板编号', '模板名称', '必填字段', '可选字段', '特殊要求']
+  R1: ['MS-TY-001', '法定代表人身份证明书', 'unit_full_name, legal_representative_name, legal_representative_position, contact_address, contact_phone, issue_date', '无', '右下角显示 "（公章）" 字样']
+  R2: ['MS-TY-002', '主要负责人身份证明书', 'unit_full_name, main_responsible_name, main_responsible_position, contact_address, contact_phone, issue_date', '无', '右下角显示 "（公章）" 字样']
+  R3: ['MS-TY-003', '共同诉讼代表人推选书', 'representative1_name, representative2_name, representative_address, representative_phone, issue_date', 'other_representatives（数组）', '底部每行预留一个推选人签名 / 盖章位置']
+  R4: ['MS-TY-004', '授权委托书（自然人用）', 'client_name, client_gender, client_birth_date, client_nation, client_work_unit, client_address, client_phone, agent1_name, agent1_unit, agent1_position, agent1_phone, case_parties, case_cause, is_spec', 'agent2_name, agent2_relation, agent2_address, agent2_phone, special_authorizations（数组）', 'is_special_authorization 为 true 时显示特别授权及具体权限']
+  R5: ['MS-TY-005', '授权委托书（法人 / 其他组织用）', 'client_unit_full_name, client_unit_address, legal_representative_name, legal_representative_position, legal_representative_phone, agent1_name, agent1_unit, agent1_position, agent1_phone, case_parties,', 'agent2_name, agent2_unit, agent2_position, agent2_phone, special_authorizations（数组）', '右下角预留委托单位公章及法定代表人签名位置']
+  R6: ['MS-TY-006', '推荐函', 'accepting_court_full_name, case_parties, case_cause, recommended_person_name, authorization_scope, issue_date', '无', '右下角预留推荐单位公章及签名位置']
+
+=== TABLE 1 (23r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['MS-AY-001', '民事起诉状（买卖合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, contract_sign_date, contract_subject, payment_terms, payment_status, overdue_date, collection_status, fact_and_reason, evidence_list（数组）, filing_c']
+  R2: ['MS-AY-002', '民事答辩状（买卖合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R3: ['MS-AY-003', '民事起诉状（金融借款合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, loan_contract_no, loan_amount, loan_term, interest_rate, repayment_status, overdue_date, guarantee_info, filing_court, filing_date']
+  R4: ['MS-AY-004', '民事答辩状（金融借款合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R5: ['MS-AY-005', '民事起诉状（物业服务合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, property_contract_no, service_period, fee_standard, arrears_amount, arrears_period, collection_status, filing_court, filing_date']
+  R6: ['MS-AY-006', '民事答辩状（物业服务合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, service_defects（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R7: ['MS-AY-007', '民事起诉状（银行信用卡纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, card_no, opening_date, credit_limit, overdraft_principal, overdraft_date, collection_status, filing_court, filing_date']
+  R8: ['MS-AY-008', '民事答辩状（银行信用卡纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R9: ['MS-AY-009', '民事起诉状（机动车交通事故责任纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, accident_date, accident_location, liability_confirmation, insurance_info, medical_expenses, disability_level, filing_court, filing_date']
+  R10: ['MS-AY-010', '民事答辩状（机动车交通事故责任纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R11: ['MS-AY-011', '民事起诉状（劳动争议纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, employment_date, position, salary, termination_date, arbitration_result, filing_court, filing_date']
+  R12: ['MS-AY-012', '民事答辩状（劳动争议纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, company_rules, disciplinary_records, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R13: ['MS-AY-013', '民事起诉状（融资租赁合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, lease_contract_no, lease_item, lease_term, rent_amount, unpaid_rent, overdue_date, guarantee_info, filing_court, filing_date']
+  R14: ['MS-AY-014', '民事答辩状（融资租赁合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R15: ['MS-AY-015', '民事起诉状（保证保险合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, insurance_contract_no, loan_amount, overdue_date, claim_amount, claim_date, filing_court, filing_date']
+  R16: ['MS-AY-016', '民事答辩状（保证保险合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R17: ['MS-AY-017', '民事起诉状（证券虚假陈述责任纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, false_statement_date, transaction_date, loss_amount, causal_relationship, filing_court, filing_date']
+  R18: ['MS-AY-018', '民事答辩状（证券虚假陈述责任纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R19: ['MS-AY-019', '民事起诉状（民间借贷纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, loan_date, loan_amount, interest_rate, repayment_status, overdue_date, delivery_proof, filing_court, filing_date']
+  R20: ['MS-AY-020', '民事答辩状（民间借贷纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+  R21: ['MS-AY-021', '民事起诉状（建设工程施工合同纠纷）', 'plaintiff_info, defendant_info, lawsuit_requests（数组）, contract_no, project_name, construction_period, completion_date, settlement_amount, unpaid_amount, filing_court, filing_date']
+  R22: ['MS-AY-022', '民事答辩状（建设工程施工合同纠纷）', 'respondent_info, plaintiff_info, case_cause, objections（数组）, quality_issues, delay_reasons, fact_and_reason, evidence_list（数组）, responding_court, responding_date']
+
+=== TABLE 2 (9r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-001', '法律援助咨询登记表', 'consultant_info, consultation_date, consultation_content, consultant_signature, recorder_signature']
+  R2: ['FZ-002', '法律援助申请表', 'applicant_info, family_members（数组）, economic_status, case_brief, application_reason, application_date, applicant_signature']
+  R3: ['FZ-003', '授权委托书（法律援助用）', 'client_info, agent_info, case_info, authorization_scope, issue_date, client_signature']
+  R4: ['FZ-004', '经济困难状况说明表', 'applicant_info, family_income, family_expenses, property_status, debt_status, declaration, applicant_signature, issue_date']
+  R5: ['FZ-005', '法律援助申请材料接收凭证', 'applicant_name, receive_date, materials_list（数组）, receiver_signature, applicant_signature']
+  R6: ['FZ-006', '补充材料 / 说明通知书', 'applicant_name, case_no, required_materials（数组）, deadline, issuing_authority, issue_date']
+  R7: ['FZ-007', '法律援助协作函', 'to_authority, case_info, collaboration_content, contact_info, issuing_authority, issue_date']
+  R8: ['FZ-008', '法律援助审查表', 'applicant_info, case_brief, economic_status_review, legal_review, review_opinion, reviewer_signature, review_date']
+
+=== TABLE 3 (6r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-009', '给予法律援助决定书', 'applicant_name, case_no, decision_reason, assistance_type, issuing_authority, issue_date']
+  R2: ['FZ-010', '不予法律援助决定书', 'applicant_name, case_no, rejection_reason, appeal_right, issuing_authority, issue_date']
+  R3: ['FZ-011', '指派通知书', 'to_law_firm, case_info, assigned_lawyer, deadline, issuing_authority, issue_date']
+  R4: ['FZ-012', '委托代理 / 辩护协议', 'client_info, law_firm_info, assigned_lawyer, case_info, rights_obligations, agreement_date, signatures']
+  R5: ['FZ-013', '法律援助公函', 'to_authority, case_info, assigned_lawyer, authorization_scope, issuing_authority, issue_date']
+
+=== TABLE 4 (10r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-014', '法律援助案件承办情况通报 / 报告记录', 'case_no, case_info, report_content, reporter, report_date, receiver_signature']
+  R2: ['FZ-015', '法律援助机构介绍信', 'to_authority, case_info, introduced_person, purpose, issuing_authority, issue_date']
+  R3: ['FZ-016', '更换法律援助人员申请表', 'applicant_name, case_no, current_lawyer, replacement_reason, proposed_lawyer, applicant_signature, application_date']
+  R4: ['FZ-017', '更换法律援助人员通知书', 'applicant_name, case_no, original_lawyer, new_lawyer, reason, issuing_authority, issue_date']
+  R5: ['FZ-018', '终止法律援助决定书', 'applicant_name, case_no, termination_reason, appeal_right, issuing_authority, issue_date']
+  R6: ['FZ-019', '终止法律援助公函', 'to_authority, case_no, termination_reason, issuing_authority, issue_date']
+  R7: ['FZ-020', '法律援助异议审查决定书', 'applicant_name, original_decision, objection_content, review_result, issuing_authority, issue_date']
+  R8: ['FZ-021', '结案报告表', 'case_no, case_info, handling_process, handling_result, expense_settlement, handler_signature, closing_date']
+  R9: ['FZ-022', '送达回证', 'case_no, document_name, receiver_info, receive_date, receiver_signature, remarks']
+
+=== TABLE 5 (8r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-023', '法律帮助申请表', 'applicant_info, case_info, help_content, application_date, applicant_signature']
+  R2: ['FZ-024', '值班律师提供法律帮助通知书（公安机关）', 'suspect_info, case_info, notification_date, issuing_authority']
+  R3: ['FZ-025', '值班律师提供法律帮助通知书（国家安全机关）', 'suspect_info, case_info, notification_date, issuing_authority']
+  R4: ['FZ-026', '值班律师提供法律帮助通知书（人民检察院）', 'suspect_info, case_info, notification_date, issuing_authority']
+  R5: ['FZ-027', '值班律师提供法律帮助通知书（人民法院）', 'defendant_info, case_info, notification_date, issuing_authority']
+  R6: ['FZ-028', '值班律师提供法律帮助情况登记表', 'case_info, suspect_info, help_content, help_date, lawyer_signature']
+  R7: ['FZ-029', '值班律师法律帮助工作台账', 'date, case_info, suspect_info, help_content, lawyer, remarks']
+
+=== TABLE 6 (4r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-030', '庭审旁听情况记录表', 'case_no, court, hearing_date, lawyer, performance_evaluation, observer_signature, record_date']
+  R2: ['FZ-031', '征询办案机关意见函', 'to_authority, case_list（数组）, consultation_content, deadline, issuing_authority, issue_date']
+  R3: ['FZ-032', '受援人回访记录表', 'case_no, recipient_info, service_evaluation, suggestions, interviewer_signature, interview_date']
+
+=== TABLE 7 (13r x 3c) ===
+  R0: ['模板编号', '模板名称', '核心必填字段']
+  R1: ['FZ-033', '类案检索报告', 'retriever, retrieval_date, platforms, methods, case_list（数组）, key_points, dispute_focus, reference_analysis, conclusion']
+  R2: ['FZ-034', '案件汇报提纲', 'case_basic_info, dispute_focus, evidence_analysis, legal_application, handling_opinions, risks']
+  R3: ['FZ-035', '类案批量侦查数据分析报告', 'survey_overview, basic_data, case_features, problems, causes, suggestions']
+  R4: ['FZ-036', '专项侦查工作方案', 'case_brief, case_analysis, organization, measures, timeline, risk_prevention']
+  R5: ['FZ-037', '审查报告（捕诉合一）', 'litigation_process, parties_info, case_occurrence, investigation_opinion, evidence_review, facts_found, legal_application, handling_opinion']
+  R6: ['FZ-038', '书面质证意见书', 'case_no, court, evidence_name, authenticity_objection, legality_objection, relevance_objection, purpose_objection, request']
+  R7: ['FZ-039', '辩护词', 'court, defendant_info, case_info, defense_opinions（事实认定、法律适用、量刑情节）, lawyer_signature, date']
+  R8: ['FZ-040', '公诉意见书', 'defendant_info, case_cause, court_task, investigation_result, evidence_analysis, legal_application, sentencing_suggestion']
+  R9: ['FZ-041', '不起诉理由说明书', 'case_source, parties_info, investigation_facts, review_facts, non_prosecution_reason, legal_basis']
+  R10: ['FZ-042', '司法建议书', 'to_unit, problem_found, facts, legal_basis, suggestions, feedback_requirement, issuing_authority, issue_date']
+  R11: ['FZ-043', '律师会见笔录', 'meeting_time, location, lawyer, interviewee, content, interviewee_signature, lawyer_signature']
+  R12: ['FZ-044', '庭审发问提纲', 'case_no, question_object, question_order, question_content, question_purpose']
+
+=== TABLE 8 (1r x 1c) ===
+  R0: ['ftl <#-- 法定代表人身份证明书 MS-TY-001 --> <!DOCTYPE html> <html> <head>     <meta charset="UTF-8">     <title>法定代表人身份证明书</title>     <style>         body {             font-family: "SimSun";             font-']
+
+=== TABLE 9 (1r x 1c) ===
+  R0: ['ftl <#-- 授权委托书（自然人用） MS-TY-004 --> <!DOCTYPE html> <html> <head>     <meta charset="UTF-8">     <title>授权委托书</title>     <style>         body {             font-family: "SimSun";             font-size']
+
+=== TABLE 10 (1r x 1c) ===
+  R0: ['ftl <#-- 民事起诉状（买卖合同纠纷） MS-AY-001 核心片段 --> <div class="section-title">诉讼请求</div> <#list lawsuit_requests as request> <div class="content">${request_index+1}. ${request}</div> </#list>  <div class="sect']
+
+=== TABLE 11 (1r x 1c) ===
+  R0: ['ftl <#-- 法律援助申请表 FZ-002 核心片段 --> <table border="1" cellpadding="5" cellspacing="0" width="100%">     <tr>         <td width="20%">申请人姓名</td>         <td width="30%">${applicant_name}</td>         <td ']

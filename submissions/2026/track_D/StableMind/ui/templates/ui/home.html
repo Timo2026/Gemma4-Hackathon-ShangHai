@@ -1,0 +1,38 @@
+{% extends "ui/base.html" %}
+
+{% block title %}MindForm Console{% endblock %}
+
+{% block content %}
+<section>
+    <p class="eyebrow">Personality engine · live console</p>
+    <h1 class="page-h">MindForm Console</h1>
+    <p class="lead">Initialize a persona, talk to an agent, run single engine steps, and inspect the belief, trait, and memory state in real time. Perception and language run on <em>Gemma</em> via Google AI Studio.</p>
+
+    <div class="grid grid-3" style="margin-top:40px;">
+        <a href="{% url 'create_persona' %}" class="tile">
+            <h2>Create Persona</h2>
+            <p>Reset and initialize persona + memory files.</p>
+        </a>
+        <a href="{% url 'talk' %}" class="tile">
+            <h2>Talk</h2>
+            <p>Send direct prompts and get an in-character response.</p>
+        </a>
+        <a href="{% url 'interactive_test' %}" class="tile">
+            <h2>Interactive Test</h2>
+            <p>Run a single engine step and inspect internals.</p>
+        </a>
+        <a href="{% url 'persona' %}" class="tile">
+            <h2>Persona Viewer</h2>
+            <p>Explore immutable, stable, and dynamic persona data.</p>
+        </a>
+        <a href="{% url 'memory' %}" class="tile">
+            <h2>Memory Viewer</h2>
+            <p>Inspect JSONL logs for perceptions and reflection.</p>
+        </a>
+        <a href="{% url 'evaluation_session' %}" class="tile">
+            <h2>Evaluation Session</h2>
+            <p>Start and manage human-evaluation session logging.</p>
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,988 @@
+=== TABLE 0 ===
+Plaintext
+<#-- 主要负责人身份证明书 MS-TY-002 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>主要负责人身份证明书</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">主要负责人身份证明书</div>
+    <div class="content">
+        ${unit_full_name}系我单位全称，${main_responsible_name}同志现任我单位${main_responsible_position}职务，为我单位主要负责人，特此证明。
+    </div>
+    <div class="content">
+        联系地址：${contact_address}
+    </div>
+    <div class="content">
+        联系电话：${contact_phone}
+    </div>
+    <div class="signature">
+        ${unit_full_name}<br>
+        （公章）<br>
+        ${issue_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 1 ===
+JSON
+{
+  "template_id": "MS-TY-002",
+  "template_name": "主要负责人身份证明书",
+  "fields": [
+    {
+      "name": "unit_full_name",
+      "label": "单位全称",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入单位全称"
+    },
+    {
+      "name": "main_responsible_name",
+      "label": "主要负责人姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入主要负责人姓名"
+    },
+    {
+      "name": "main_responsible_position",
+      "label": "职务",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入职务"
+    },
+    {
+      "name": "contact_address",
+      "label": "联系地址",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入联系地址"
+    },
+    {
+      "name": "contact_phone",
+      "label": "联系电话",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入联系电话"
+    },
+    {
+      "name": "issue_date",
+      "label": "出具日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 2 ===
+Plaintext
+<#-- 共同诉讼代表人推选书 MS-TY-003 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>共同诉讼代表人推选书</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .signature-list {
+            margin-top: 3cm;
+        }
+        .signature-item {
+            margin-bottom: 1cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">共同诉讼代表人推选书</div>
+    <div class="content">
+        我们共同推选${representative1_name}、${representative2_name}为我方与${case_parties}因${case_cause}一案的共同诉讼代表人。
+    </div>
+    <div class="content">
+        代表人的诉讼行为对全体推选人发生法律效力。
+    </div>
+    <div class="content">
+        代表人联系地址：${representative_address}
+    </div>
+    <div class="content">
+        代表人联系电话：${representative_phone}
+    </div>
+    <div class="signature-list">
+        <div class="signature-item">推选人签名/盖章：____________________</div>
+        <div class="signature-item">推选人签名/盖章：____________________</div>
+        <#if other_representatives??>
+        <#list other_representatives as rep>
+        <div class="signature-item">推选人签名/盖章：____________________</div>
+        </#list>
+        </#if>
+    </div>
+    <div class="content" style="text-align: right; margin-top: 1cm;">
+        ${issue_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 3 ===
+JSON
+{
+  "template_id": "MS-TY-003",
+  "template_name": "共同诉讼代表人推选书",
+  "fields": [
+    {
+      "name": "representative1_name",
+      "label": "代表人1姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入代表人1姓名"
+    },
+    {
+      "name": "representative2_name",
+      "label": "代表人2姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入代表人2姓名"
+    },
+    {
+      "name": "case_parties",
+      "label": "对方当事人",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入对方当事人姓名或单位名称"
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "representative_address",
+      "label": "代表人联系地址",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入代表人联系地址"
+    },
+    {
+      "name": "representative_phone",
+      "label": "代表人联系电话",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入代表人联系电话"
+    },
+    {
+      "name": "other_representatives",
+      "label": "其他代表人（可选）",
+      "type": "array",
+      "required": false,
+      "item": {
+        "type": "text",
+        "label": "代表人姓名"
+      }
+    },
+    {
+      "name": "issue_date",
+      "label": "出具日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 4 ===
+Plaintext
+<#-- 授权委托书（法人/其他组织用） MS-TY-005 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>授权委托书</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+        .checkbox {
+            font-family: "SimSun";
+        }
+    </style>
+</head>
+<body>
+    <div class="title">授权委托书</div>
+    <div class="content">
+        委托单位：${client_unit_full_name}，住所${client_unit_address}。
+    </div>
+    <div class="content">
+        法定代表人/主要负责人：${legal_representative_name}，职务${legal_representative_position}，联系电话：${legal_representative_phone}。
+    </div>
+    <div class="content">
+        受委托人：${agent1_name}，${agent1_unit}${agent1_position}，联系电话：${agent1_phone}。
+    </div>
+    <#if agent2_name??>
+    <div class="content">
+        受委托人：${agent2_name}，${agent2_unit}${agent2_position}，联系电话：${agent2_phone}。
+    </div>
+    </#if>
+    <div class="content">
+        现委托上列受委托人在我单位与${case_parties}因${case_cause}一案中，作为我单位参加诉讼的委托代理人。
+    </div>
+    <div class="content">
+        代理权限：
+        <#if is_special_authorization>
+        <span class="checkbox">☑</span>特别授权：
+        <#list special_authorizations as auth>
+        ${auth}<#if auth_has_next>；</#if>
+        </#list>
+        <#else>
+        <span class="checkbox">☑</span>一般授权。
+        </#if>
+    </div>
+    <div class="signature">
+        委托单位：${client_unit_full_name}<br>
+        （公章）<br>
+        法定代表人/主要负责人：${legal_representative_name}<br>
+        ${issue_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 5 ===
+JSON
+{
+  "template_id": "MS-TY-005",
+  "template_name": "授权委托书（法人/其他组织用）",
+  "fields": [
+    {
+      "name": "client_unit_full_name",
+      "label": "委托单位全称",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入委托单位全称"
+    },
+    {
+      "name": "client_unit_address",
+      "label": "单位地址",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入单位地址"
+    },
+    {
+      "name": "legal_representative_name",
+      "label": "法定代表人/主要负责人姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入法定代表人或主要负责人姓名"
+    },
+    {
+      "name": "legal_representative_position",
+      "label": "职务",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入职务"
+    },
+    {
+      "name": "legal_representative_phone",
+      "label": "联系电话",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入联系电话"
+    },
+    {
+      "name": "agent1_name",
+      "label": "受委托人1姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受委托人1姓名"
+    },
+    {
+      "name": "agent1_unit",
+      "label": "受委托人1单位",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受委托人1单位"
+    },
+    {
+      "name": "agent1_position",
+      "label": "受委托人1职务",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受委托人1职务"
+    },
+    {
+      "name": "agent1_phone",
+      "label": "受委托人1联系电话",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受委托人1联系电话"
+    },
+    {
+      "name": "case_parties",
+      "label": "对方当事人",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入对方当事人姓名或单位名称"
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "is_special_authorization",
+      "label": "代理权限",
+      "type": "radio",
+      "required": true,
+      "options": [
+        {"value": false, "label": "一般授权"},
+        {"value": true, "label": "特别授权"}
+      ]
+    },
+    {
+      "name": "special_authorizations",
+      "label": "特别授权内容",
+      "type": "checkbox",
+      "required": false,
+      "show_when": {"field": "is_special_authorization", "value": true},
+      "options": [
+        {"value": "代为承认、放弃、变更诉讼请求", "label": "代为承认、放弃、变更诉讼请求"},
+        {"value": "代为进行和解", "label": "代为进行和解"},
+        {"value": "代为提起反诉或者上诉", "label": "代为提起反诉或者上诉"},
+        {"value": "代为签收法律文书", "label": "代为签收法律文书"}
+      ]
+    },
+    {
+      "name": "agent2_name",
+      "label": "受委托人2姓名（可选）",
+      "type": "text",
+      "required": false,
+      "placeholder": "请输入受委托人2姓名"
+    },
+    {
+      "name": "agent2_unit",
+      "label": "受委托人2单位（可选）",
+      "type": "text",
+      "required": false,
+      "placeholder": "请输入受委托人2单位",
+      "show_when": {"field": "agent2_name", "value": "!empty"}
+    },
+    {
+      "name": "agent2_position",
+      "label": "受委托人2职务（可选）",
+      "type": "text",
+      "required": false,
+      "placeholder": "请输入受委托人2职务",
+      "show_when": {"field": "agent2_name", "value": "!empty"}
+    },
+    {
+      "name": "agent2_phone",
+      "label": "受委托人2联系电话（可选）",
+      "type": "text",
+      "required": false,
+      "placeholder": "请输入受委托人2联系电话",
+      "show_when": {"field": "agent2_name", "value": "!empty"}
+    },
+    {
+      "name": "issue_date",
+      "label": "出具日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 6 ===
+Plaintext
+<#-- 推荐函 MS-TY-006 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>推荐函</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">推荐函</div>
+    <div class="content">
+        ${accepting_court_full_name}：
+    </div>
+    <div class="content">
+        关于${case_parties}因${case_cause}一案，现推荐${recommended_person_name}作为本案当事人的诉讼代理人。
+    </div>
+    <div class="content">
+        代理权限：${authorization_scope}。
+    </div>
+    <div class="signature">
+        推荐单位：____________________<br>
+        （公章）<br>
+        推荐人：____________________<br>
+        ${issue_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 7 ===
+JSON
+{
+  "template_id": "MS-TY-006",
+  "template_name": "推荐函",
+  "fields": [
+    {
+      "name": "accepting_court_full_name",
+      "label": "受理法院全称",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "case_parties",
+      "label": "案件当事人",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案件当事人姓名或单位名称"
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "recommended_person_name",
+      "label": "被推荐人姓名",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入被推荐人姓名"
+    },
+    {
+      "name": "authorization_scope",
+      "label": "代理权限",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入代理权限"
+    },
+    {
+      "name": "issue_date",
+      "label": "出具日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 8 ===
+Plaintext
+<#-- 民事答辩状（买卖合同纠纷） MS-AY-002 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事答辩状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事答辩状</div>
+    
+    <div class="party-info">
+        答辩人：${respondent_info.name}，${respondent_info.gender}，${respondent_info.birth_date}出生，${respondent_info.nation}族，${respondent_info.work_unit}，住${respondent_info.address}，联系电话：${respondent_info.phone}。
+    </div>
+    <div class="party-info">
+        被答辩人：${plaintiff_info.name}，${plaintiff_info.gender}，${plaintiff_info.birth_date}出生，${plaintiff_info.nation}族，${plaintiff_info.work_unit}，住${plaintiff_info.address}，联系电话：${plaintiff_info.phone}。
+    </div>
+
+    <div class="section-title">答辩请求</div>
+    <#list objections as objection>
+    <div class="content">${objection_index+1}. ${objection}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        答辩人于${receive_date}收到贵院送达的被答辩人诉答辩人${case_cause}一案的起诉状副本。现答辩如下：
+    </div>
+    <div class="content">
+        ${fact_and_reason}
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${responding_court}<br><br>
+        答辩人：${respondent_info.name}<br>
+        ${responding_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 9 ===
+JSON
+{
+  "template_id": "MS-AY-002",
+  "template_name": "民事答辩状（买卖合同纠纷）",
+  "fields": [
+    {
+      "name": "respondent_info",
+      "label": "答辩人信息",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "work_unit", "label": "工作单位/职业", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "plaintiff_info",
+      "label": "被答辩人信息",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "work_unit", "label": "工作单位/职业", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "case_cause",
+      "label": "案由",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入案由"
+    },
+    {
+      "name": "receive_date",
+      "label": "收到起诉状日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "objections",
+      "label": "答辩请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "答辩请求"
+      }
+    },
+    {
+      "name": "fact_and_reason",
+      "label": "事实与理由",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "请详细陈述事实与理由"
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "responding_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "responding_date",
+      "label": "答辩日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+
+=== TABLE 10 ===
+Plaintext
+<#-- 民事起诉状（金融借款合同纠纷） MS-AY-003 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>民事起诉状</title>
+    <style>
+        body {
+            font-family: "SimSun";
+            font-size: 14pt;
+            line-height: 1.5;
+            margin: 2.54cm 3.17cm;
+        }
+        .title {
+            font-size: 22pt;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1cm;
+        }
+        .section-title {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-top: 1cm;
+            margin-bottom: 0.5cm;
+        }
+        .content {
+            text-indent: 2em;
+            margin-bottom: 0.5cm;
+        }
+        .party-info {
+            margin-bottom: 0.5cm;
+        }
+        .signature {
+            text-align: right;
+            margin-top: 3cm;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">民事起诉状</div>
+    
+    <div class="party-info">
+        原告：${plaintiff_info.name}，住所地${plaintiff_info.address}，统一社会信用代码${plaintiff_info.credit_code}。
+    </div>
+    <div class="party-info">
+        法定代表人：${plaintiff_info.legal_representative}，职务${plaintiff_info.position}，联系电话：${plaintiff_info.phone}。
+    </div>
+    <div class="party-info">
+        被告：${defendant_info.name}，${defendant_info.gender}，${defendant_info.birth_date}出生，${defendant_info.nation}族，住${defendant_info.address}，联系电话：${defendant_info.phone}。
+    </div>
+    <#if guarantee_info??>
+    <div class="party-info">
+        担保人：${guarantee_info.name}，${guarantee_info.gender}，${guarantee_info.birth_date}出生，${guarantee_info.nation}族，住${guarantee_info.address}，联系电话：${guarantee_info.phone}。
+    </div>
+    </#if>
+
+    <div class="section-title">诉讼请求</div>
+    <#list lawsuit_requests as request>
+    <div class="content">${request_index+1}. ${request}</div>
+    </#list>
+
+    <div class="section-title">事实与理由</div>
+    <div class="content">
+        ${loan_date}，原告与被告签订编号为${loan_contract_no}的《个人借款合同》，约定被告向原告借款人民币${loan_amount}元，借款期限为${loan_term}个月，年利率为${interest_rate}%。
+    </div>
+    <div class="content">
+        合同签订后，原告依约向被告发放了全部贷款。但被告自${overdue_date}起未按合同约定偿还借款本息，截至${current_date}，被告尚欠原告借款本金${outstanding_principal}元，利息${outstanding_interest}元，罚息${outstanding_penalty}元，复利${outstanding_compound_interest}元。
+    </div>
+    <#if guarantee_info??>
+    <div class="content">
+        ${guarantee_date}，原告与担保人签订编号为${guarantee_contract_no}的《保证合同》，约定担保人对被告的上述债务承担连带责任保证。
+    </div>
+    </#if>
+    <div class="content">
+        被告的上述行为已构成严重违约，给原告造成了经济损失。为维护原告的合法权益，根据《中华人民共和国民法典》第六百七十六条、第六百八十八条等相关法律规定，特向贵院提起诉讼，请求依法判决，支持原告的全部诉讼请求。
+    </div>
+
+    <div class="section-title">证据和证据来源</div>
+    <#list evidence_list as evidence>
+    <div class="content">${evidence_index+1}. ${evidence.name}：证明${evidence.content}</div>
+    </#list>
+
+    <div class="signature">
+        此致<br>
+        ${filing_court}<br><br>
+        起诉人：${plaintiff_info.name}<br>
+        （公章）<br>
+        ${filing_date}
+    </div>
+</body>
+</html>
+
+=== TABLE 11 ===
+JSON
+{
+  "template_id": "MS-AY-003",
+  "template_name": "民事起诉状（金融借款合同纠纷）",
+  "fields": [
+    {
+      "name": "plaintiff_info",
+      "label": "原告信息（金融机构）",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "单位名称", "type": "text", "required": true},
+        {"name": "address", "label": "住所地", "type": "text", "required": true},
+        {"name": "credit_code", "label": "统一社会信用代码", "type": "text", "required": true},
+        {"name": "legal_representative", "label": "法定代表人", "type": "text", "required": true},
+        {"name": "position", "label": "职务", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "defendant_info",
+      "label": "被告信息",
+      "type": "object",
+      "required": true,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "guarantee_info",
+      "label": "担保人信息（可选）",
+      "type": "object",
+      "required": false,
+      "properties": [
+        {"name": "name", "label": "姓名", "type": "text", "required": true},
+        {"name": "gender", "label": "性别", "type": "select", "required": true, "options": [{"value": "男", "label": "男"}, {"value": "女", "label": "女"}]},
+        {"name": "birth_date", "label": "出生日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "nation", "label": "民族", "type": "text", "required": true},
+        {"name": "address", "label": "住址", "type": "text", "required": true},
+        {"name": "phone", "label": "联系电话", "type": "text", "required": true},
+        {"name": "guarantee_date", "label": "保证合同签订日期", "type": "date", "required": true, "format": "yyyy年MM月dd日"},
+        {"name": "guarantee_contract_no", "label": "保证合同编号", "type": "text", "required": true}
+      ]
+    },
+    {
+      "name": "loan_contract_no",
+      "label": "借款合同编号",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入借款合同编号"
+    },
+    {
+      "name": "loan_date",
+      "label": "借款合同签订日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "loan_amount",
+      "label": "借款金额（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入借款金额"
+    },
+    {
+      "name": "loan_term",
+      "label": "借款期限（月）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入借款期限"
+    },
+    {
+      "name": "interest_rate",
+      "label": "年利率（%）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入年利率"
+    },
+    {
+      "name": "overdue_date",
+      "label": "逾期日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "current_date",
+      "label": "截至日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    },
+    {
+      "name": "outstanding_principal",
+      "label": "尚欠本金（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入尚欠本金"
+    },
+    {
+      "name": "outstanding_interest",
+      "label": "尚欠利息（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入尚欠利息"
+    },
+    {
+      "name": "outstanding_penalty",
+      "label": "尚欠罚息（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入尚欠罚息"
+    },
+    {
+      "name": "outstanding_compound_interest",
+      "label": "尚欠复利（元）",
+      "type": "number",
+      "required": true,
+      "placeholder": "请输入尚欠复利"
+    },
+    {
+      "name": "lawsuit_requests",
+      "label": "诉讼请求",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "text",
+        "label": "诉讼请求"
+      }
+    },
+    {
+      "name": "evidence_list",
+      "label": "证据清单",
+      "type": "array",
+      "required": true,
+      "item": {
+        "type": "object",
+        "properties": [
+          {"name": "name", "label": "证据名称", "type": "text", "required": true},
+          {"name": "content", "label": "证明内容", "type": "text", "required": true}
+        ]
+      }
+    },
+    {
+      "name": "filing_court",
+      "label": "受理法院",
+      "type": "text",
+      "required": true,
+      "placeholder": "请输入受理法院全称"
+    },
+    {
+      "name": "filing_date",
+      "label": "起诉日期",
+      "type": "date",
+      "required": true,
+      "format": "yyyy年MM月dd日"
+    }
+  ]
+}
+

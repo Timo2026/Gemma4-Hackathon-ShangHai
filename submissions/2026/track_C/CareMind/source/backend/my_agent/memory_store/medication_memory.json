@@ -1,0 +1,19 @@
+{
+  "local_patient": {
+    "patient_id": "local_patient",
+    "current_medications": [],
+    "medication_events": [
+      {
+        "event_type": "medication_refusal",
+        "time": "2026-06-05 13:15:02",
+        "evidence": "不肯吃药",
+        "action": "记录并建议复诊时与医生讨论"
+      }
+    ],
+    "doctor_notes": [
+      "不要自行调整药量",
+      "持续记录拒药和漏服情况"
+    ],
+    "updated_at": "2026-06-05 13:15:02"
+  }
+}

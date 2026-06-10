@@ -1,0 +1,9 @@
+.venv
+.venv312
+__pycache__
+**/__pycache__
+*.pyc
+.env
+.pytest_cache
+uploads
+tokscale*

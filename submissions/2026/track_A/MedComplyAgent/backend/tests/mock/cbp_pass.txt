@@ -1,0 +1,5 @@
+Patient had an office visit on 2026-04-20.
+Blood pressure at office visit: 138/86.
+Repeat blood pressure at office visit: 144/92.
+Patient also had an emergency department encounter on 2026-04-28.
+Blood pressure at emergency department: 128/80.

@@ -1,0 +1,28 @@
+// ViewWander 选人评测集 · 一行一用例（JSON）。// 开头的行会被跳过。
+// 字段：id / image(相对仓库根，复用 data/) / note(给人看) / expect{required,forbid,acceptable}
+//   required   必须触发（漏 = 扣 recall）   forbid 不该触发（出现 = 越界，扣 precision）   acceptable 中性不奖不罚
+// 选人无单一正解，故三档而非精确匹配。打分只看 required/forbid，acceptable 仅供阅读。
+//
+// ⚠ 17 人格版（2026-06-08 重标，看 14 张真图 + 各人格 trigger 划界）。判定逻辑：
+//   - required = 这张图最该触发的「招牌」人格（每图恰 1 个，宁缺毋滥）；拿不准就降 acceptable
+//   - forbid   = trigger 明确缺位的人格，出现即越界。本集硬规则：
+//       · half-light 全 14 forbid（没有一张有「具体威胁源/要先动手」）
+//       · 无人物图 forbid empathy/authority/composure/drama（社会侧需可读的人）
+//       · electro 仅 #3/#12（有情绪性人物）放行，其余 forbid（测它克制不油腻）
+//       · interfacing 仅 #8/#9（有科技物）放行，其余 forbid（最窄人格）
+//       · inland 在人物/人群/场所主导图 forbid（治它霸屏：只配被「具体死物」击中）
+//   - acceptable = 其余可解释的选择，不奖不罚（给导演判断留余地）
+{"id":"roof-planes","image":"data/1.jpg","note":"雪天屋顶，连体工装男手持两架模型飞机，正面凝视、面无表情的乡村寒冬肖像","expect":{"required":["composure"],"forbid":["half-light","electro","interfacing","inland","volition","authority","shivers"],"acceptable":["reptile","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","empathy","drama"]}}
+{"id":"night-gas-station","image":"data/2.jpg","note":"暮色便利店在雪山+墓地基部发光，无人，纯场所氛围","expect":{"required":["shivers"],"forbid":["half-light","electro","interfacing","volition","empathy","authority","composure","drama"],"acceptable":["reptile","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","inland"]}}
+{"id":"red-booth","image":"data/3.jpg","note":"全红酒吧卡座，独坐青年+心形气球+情人节装饰+两只杯子，忧郁","expect":{"required":["empathy"],"forbid":["half-light","interfacing","authority","reptile","inland","shivers"],"acceptable":["electro","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","composure","drama","volition"]}}
+{"id":"prisoners-cross","image":"data/4.jpg","note":"四名橙色囚服男+旅行车+巨型白十字架+国旗，雾，权力/意识形态张力","expect":{"required":["authority"],"forbid":["half-light","electro","interfacing","inland","volition"],"acceptable":["reptile","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","empathy","composure","drama","shivers"]}}
+{"id":"woman-framed-sky","image":"data/5.jpg","note":"沙发上老妇捧着一幅天空金框画，正面凝视、端着的肖像","expect":{"required":["composure"],"forbid":["half-light","electro","interfacing","authority","reptile","shivers","volition","visual-calculus"],"acceptable":["pain-threshold","perception","logic","encyclopedia","conceptualization","empathy","drama","inland"]}}
+{"id":"empty-tram-seats","image":"data/6.jpg","note":"老旧电车空座，藤编+磨损，无人静物（死物低语）","expect":{"required":["inland"],"forbid":["half-light","electro","interfacing","volition","empathy","authority","composure","drama"],"acceptable":["reptile","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","shivers"]}}
+{"id":"museum-child-camera","image":"data/7.jpg","note":"美术馆亨利摩尔式雕塑，孔洞里框住举相机回拍的小女孩，元/作品感","expect":{"required":["conceptualization"],"forbid":["half-light","electro","interfacing","reptile","shivers","pain-threshold","volition","drama","composure"],"acceptable":["perception","logic","visual-calculus","encyclopedia","empathy","authority","inland"]}}
+{"id":"towel-face","image":"data/8.jpg","note":"卫生间纸巾机像一张脸（两孔=眼+纸=嘴），背景马桶，死物拟人","expect":{"required":["inland"],"forbid":["half-light","electro","volition","empathy","authority","composure","drama","reptile","shivers","encyclopedia","pain-threshold"],"acceptable":["perception","logic","visual-calculus","conceptualization","interfacing"]}}
+{"id":"loser-spoon","image":"data/9.jpg","note":"办公桌，杯里插着写「LOSER」的木勺，电话+排班表，苦涩的荒诞","expect":{"required":["logic"],"forbid":["half-light","electro","volition","empathy","authority","composure","drama","reptile","shivers","encyclopedia"],"acceptable":["pain-threshold","perception","visual-calculus","conceptualization","inland","interfacing"]}}
+{"id":"cubicle-head","image":"data/10.jpg","note":"蓝色隔间迷宫，一颗脏辫的头从挡板后冒出，被格子吞没的压抑","expect":{"required":["reptile"],"forbid":["half-light","electro","interfacing","drama","encyclopedia","volition"],"acceptable":["pain-threshold","perception","logic","visual-calculus","conceptualization","empathy","authority","composure","inland","shivers"]}}
+{"id":"dog-bus","image":"data/11.jpg","note":"敞篷车里的狗仰头望红色双层巴士56路，湿城市街+布鲁塔利斯建筑","expect":{"required":["logic"],"forbid":["half-light","electro","interfacing","authority","composure","drama","pain-threshold","volition","empathy","inland"],"acceptable":["reptile","perception","visual-calculus","encyclopedia","conceptualization","shivers"]}}
+{"id":"heartbreak-balloon","image":"data/12.jpg","note":"街头长椅有人埋头趴下、手攥红心气球，HARMONY 店招反讽，路人走过","expect":{"required":["pain-threshold"],"forbid":["half-light","interfacing","reptile","conceptualization","encyclopedia"],"acceptable":["electro","perception","logic","visual-calculus","empathy","authority","composure","drama","inland","shivers","volition"]}}
+{"id":"desert-doll-head","image":"data/13.jpg","note":"沙漠铁丝网挂着一颗娃娃头，玻璃瓶+远处太阳能板，荒凉诡异（死物低语）","expect":{"required":["inland"],"forbid":["half-light","electro","interfacing","volition","empathy","authority","composure","drama"],"acceptable":["reptile","pain-threshold","perception","logic","visual-calculus","encyclopedia","conceptualization","shivers"]}}
+{"id":"night-street-fair","image":"data/14.jpg","note":"夜市人群，串灯+店铺+婴儿车，高密度热闹的城市街区呼吸","expect":{"required":["shivers"],"forbid":["half-light","electro","interfacing","composure","pain-threshold","volition","drama","inland"],"acceptable":["reptile","perception","logic","visual-calculus","encyclopedia","conceptualization","empathy","authority"]}}
